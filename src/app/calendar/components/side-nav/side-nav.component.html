@@ -1,0 +1,42 @@
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav #sidenav class="app-sidenav mat-elevation-z2" [opened]="!isScreenSmall()" [mode]="isScreenSmall()? 'over':'side'">
+    <mat-toolbar color="primary" class="font-custom">
+      Menu
+    </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon>calendar_view_day</mat-icon>
+      </mat-list-item>
+      <mat-list-item>
+        <a mat-line [routerLink]="['/calendar', 'year']">Year</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a mat-line [routerLink]="['/calendar', 'month']">
+          Month
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+        <a mat-line [routerLink]="['/calendar', 'day']">Day</a>
+      </mat-list-item>
+      <mat-list-item>
+          <a mat-line [routerLink]="['/calendar', 'allEvents']">View All</a>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon>event</mat-icon>
+      </mat-list-item>
+      <mat-list-item>
+        <a mat-line [routerLink]="['/calendar', 'addevent']">Add Event</a>
+      </mat-list-item>
+      <mat-list-item>
+        <a mat-line [routerLink]="['/calendar', 'applyleave']">Apply Leave</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div class="app-sidenav-content">
+    <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</mat-sidenav-container>
