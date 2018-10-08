@@ -27,7 +27,9 @@ const routes: Routes = [
       {path:'applyleave',component:ApplyLeaveComponent},
       {path:'**',redirectTo:''}
     ]
-  }
+  },
+  // {path:'**',redirectTo:''}
+  
 ]
 @NgModule({
   imports: [

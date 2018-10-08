@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone,ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Router } from '@angular/router';
-const SMALL_WIDTH_BREAKPOINT = 720;
+const SMALL_WIDTH_BREAKPOINT = 850;
 
 @Component({
   selector: 'app-side-nav',
