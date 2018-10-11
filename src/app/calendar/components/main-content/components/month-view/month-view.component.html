@@ -31,14 +31,8 @@
         <!-- This is taskbar for choose month and year -->
         <div>
           <mat-button-toggle-group #group="matButtonToggleGroup" class="yearSelect">
-            <mat-button-toggle (click)="previousYear()">
-              <mat-icon>keyboard_arrow_left</mat-icon>
-            </mat-button-toggle>
             <mat-button-toggle *ngFor="let year of listYear; let index=index" value="year" (click)="clickYear(index)">
               {{year}}
-            </mat-button-toggle>
-            <mat-button-toggle (click)="nextYear()">
-              <mat-icon>keyboard_arrow_right</mat-icon>
             </mat-button-toggle>
           </mat-button-toggle-group>
           
