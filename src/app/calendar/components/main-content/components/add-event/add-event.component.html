@@ -1,3 +1,61 @@
-<p>
-  add-event works!
-</p>
+<mat-toolbar>
+  <span class="example-spacer">Add new Events</span>
+  <span>
+    <mat-slide-toggle (click)="isRecurring(event)" [(ngModel)]="recurring">Recurring</mat-slide-toggle>
+  </span>
+</mat-toolbar>
+<hr />
+
+<div class="formAddEvent">
+  <form>
+    <mat-form-field>
+      <mat-select placeholder="Event type">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field> <br />
+    <mat-form-field>
+      <input matInput placeholder="Event title">
+    </mat-form-field>
+    <br/>
+    <div *ngIf="!recurring">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="From ...">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="To ...">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <br/>
+    </div>
+    <mat-form-field>
+      <textarea matInput placeholder="Remarks"></textarea>
+    </mat-form-field>
+    <br />
+    <div *ngIf="recurring">
+      <mat-grid-list cols="3">
+        <fieldset>
+          <legend>Recurrence pattern</legend>
+          <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="lightpink" style="border: 2px solid">
+            <ul>
+              <li><input type="radio" name="typeRecurrence" value="daily">Daily</li>
+              <li><input type="radio" name="typeRecurrence" value="weekly">Daily</li>
+              <li><input type="radio" name="typeRecurrence" value="monthly">Daily</li>
+              <li><input type="radio" name="typeRecurrence" value="yearly">Daily</li>
+            </ul>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="2" [rowspan]="1" [style.background]="lightblue" style="border: 2px solid">
+            Hello
+          </mat-grid-tile>
+        </fieldset>
+        <mat-grid-tile [colspan]="3" [rowspan]="1" [style.background]="lightblue" style="border: 2px solid">
+          Hello
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+    <br />
+    <button mat-stroked-button color="warn">Cancle</button><button mat-stroked-button color="primary">Submit</button>
+  </form>
+</div>

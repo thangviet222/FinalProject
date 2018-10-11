@@ -14,22 +14,26 @@ import { ViewAllComponent } from './components/view-all/view-all.component';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { ApplyLeaveComponent } from './components/apply-leave/apply-leave.component';
 
+import { CalendarModule, DateAdapter, CalendarEventAction } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const routes: Routes = [
   {
     path: '', component: MainContentAppComponent,
-    children:[
-      {path:'',component:YearViewComponent},
-      {path:'year',component:YearViewComponent},
-      {path:'month',component: MonthViewComponent},
-      {path:'day',component:DayViewComponent},
-      {path:'allEvents',component:ViewAllComponent},
-      {path:'addevent',component:AddEventComponent},
-      {path:'applyleave',component:ApplyLeaveComponent},
-      {path:'**',redirectTo:''}
+    children: [
+      { path: '', component: YearViewComponent },
+      { path: 'year', component: YearViewComponent },
+      { path: 'month', component: MonthViewComponent },
+      { path: 'day', component: DayViewComponent },
+      { path: 'allEvents', component: ViewAllComponent },
+      { path: 'addevent', component: AddEventComponent },
+      { path: 'applyleave', component: ApplyLeaveComponent },
+      { path: '**', redirectTo: '' }
     ]
   },
   // {path:'**',redirectTo:''}
-  
+
 ]
 @NgModule({
   imports: [
@@ -37,8 +41,24 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
   ],
-  declarations: [MainContentAppComponent, YearViewComponent, MonthViewComponent, DayViewComponent, ViewAllComponent, AddEventComponent, ApplyLeaveComponent]
+  declarations: [
+    MainContentAppComponent,
+    YearViewComponent,
+    MonthViewComponent,
+    DayViewComponent,
+    ViewAllComponent,
+    ApplyLeaveComponent,
+    AddEventComponent
+  ],
+  entryComponents:[
+    AddEventComponent
+  ]
+ 
 })
 export class MainContentModule { }

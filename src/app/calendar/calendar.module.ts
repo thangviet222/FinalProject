@@ -1,27 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarAppComponent } from './calendar-app.component';
-
 import { MaterialModule } from '../shared/material.module';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
-
 import { Routes, RouterModule } from '@angular/router';
-
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { MainContentModule } from './components/main-content/main-content.module';
-import { MainContentAppComponent } from './components/main-content/main-content-app.component';
+import { AddEventComponent } from './components/main-content/components/add-event/add-event.component'
+import { from } from 'rxjs';
 
 
-const routes: Routes =[
-  {path:'',
-   component:CalendarAppComponent,
-   children:[
-     {path:'',loadChildren:'./components/main-content/main-content.module#MainContentModule'}
-   ]
+const routes: Routes = [
+  {
+    path: '',
+    component: CalendarAppComponent,
+    children: [
+      { path: '', loadChildren: './components/main-content/main-content.module#MainContentModule' }
+    ]
   },
-  {path:'',redirectTo:''}
+  { path: '', redirectTo: '' }
 ]
 
 @NgModule({
@@ -32,6 +30,12 @@ const routes: Routes =[
     FlexLayoutModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CalendarAppComponent, SideNavComponent, ToolbarComponent],
+  declarations: [
+    CalendarAppComponent,
+    SideNavComponent,
+    ToolbarComponent,
+    ],
+  
+
 })
 export class CalendarModule { }

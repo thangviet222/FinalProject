@@ -1,3 +1,95 @@
-<p>
-  month-view works!
-</p>
+<div style="height: 100vh;">
+  <!-- This is popup -->
+  <!-- <button mat-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="addNewEvents()">
+    <mat-icon>add</mat-icon>Add new events
+  </button>
+</mat-menu> -->
+
+  <!-- This is square for display event -->
+  <ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <div class="cell-totals">
+      <span *ngFor="let group of day.eventGroups" (click)="testEvent(group)" class="badge badge-{{ group[0] }}">
+        {{ group[1].length }}
+      </span>
+    </div>
+  </ng-template>
+
+  <!-- This is tab Calendar month view -->
+  <mat-tab-group dynamicHeight (selectedTabChange)="selectTab($event)" [selectedIndex]="selectedIndex">
+    <mat-tab label="Month View" (click)="selectTab(0)">
+      <div class="example-large-box mat-elevation-z4">
+        <br />
+
+        <!-- This is taskbar for choose month and year -->
+        <div>
+          <mat-button-toggle-group #group="matButtonToggleGroup" class="yearSelect">
+            <mat-button-toggle (click)="previousYear()">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle *ngFor="let year of listYear; let index=index" value="year" (click)="clickYear(index)">
+              {{year}}
+            </mat-button-toggle>
+            <mat-button-toggle (click)="nextYear()">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+          
+          <mat-button-toggle-group #group="matButtonToggleGroup" class="shortYearSelect">
+              <mat-button-toggle (click)="previousYear()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+              </mat-button-toggle>
+              <mat-button-toggle>
+                {{currentYear}}
+              </mat-button-toggle>
+              <mat-button-toggle (click)="nextYear()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+              </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <!-- for choose month -->
+        <div>
+          <mat-button-toggle-group #group="matButtonToggleGroup" class="monthSelect">
+            <mat-button-toggle *ngFor="let month of listMonth; let index = index" value="month" (click)="clickMoth(index)">
+              {{month}}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-button-toggle-group #group="matButtonToggleGroup" class="shortMonthSelect">
+            <mat-button-toggle (click)="previousMonth()">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle>
+              {{listMonth[currentMonth]}}
+            </mat-button-toggle>
+            <mat-button-toggle (click)="nextMonth()">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+        <hr/>
+        <!-- This is view curent date in the current table data -->
+        <!-- <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3> -->
+        <!-- This is Month view -->
+        <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate"
+          (beforeViewRender)="beforeMonthViewRender($event)" (dayClicked)="dayClicked($event.day)" [activeDayIsOpen]="activeDayIsOpen"
+          (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+      </div>
+    </mat-tab>
+
+    <!-- This is tab Table view -->
+    <mat-tab label="Date View" (click)="selectTab(1)">
+      <div class="example-large-box mat-elevation-z4">
+        {{viewDate}}
+        <app-day-view></app-day-view>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

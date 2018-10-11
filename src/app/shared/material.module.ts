@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, MatSnackBarModule, MatTooltipModule, MatDialogModule, MatProgressBarModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatFormFieldModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule, MatGridListModule, MatCardModule, MatStepperModule, MatTabsModule, MatExpansionModule, MatButtonToggleModule, MatChipsModule, MatProgressSpinnerModule } from "@angular/material";
+import { MatButtonModule,MatNativeDateModule, MatCheckboxModule, MatIconModule, MatPaginatorModule, MatSortModule, MatTableModule, MatSnackBarModule, MatTooltipModule, MatDialogModule, MatProgressBarModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatFormFieldModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatListModule, MatGridListModule, MatCardModule, MatStepperModule, MatTabsModule, MatExpansionModule, MatButtonToggleModule, MatChipsModule, MatProgressSpinnerModule, MatFormFieldControl } from "@angular/material";
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { MatButtonModule, MatCheckboxModule, MatIconModule, MatPaginatorModule, 
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
   exports: [
     MatCheckboxModule,
@@ -66,9 +68,14 @@ import { MatButtonModule, MatCheckboxModule, MatIconModule, MatPaginatorModule, 
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatNativeDateModule,
+    
   ]
   ,
-  declarations: []
+  declarations: [],
+  providers:[
+    MatDatepickerModule
+  ]
 })
 export class MaterialModule { }
