@@ -1,16 +1,19 @@
 .example-container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .example-container > * {
-    width: 100%;
-  }
-  
-  .formAddEvent{
-    font-size: 18px;
-  }
-  .example-spacer{
-    flex: 1 1 auto;
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+.button-row button,
+.button-row a {
+margin-right: 8px;
+float: right;
+}
+mat-form-field {
+  width: 100%;
+}
+h2{
+  color: green
+}
