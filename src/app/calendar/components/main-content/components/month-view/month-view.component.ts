@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarMonthViewDay, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AddEventComponent } from '../add-event/add-event.component';
+import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
 
 const colors: any = {
   red: {
@@ -21,83 +22,121 @@ const colors: any = {
     secondary: '#FDF1BA'
   }
 };
-const fakeBackend: any = [
+const fakebackEndLeave: any = [
+  {
+    id: "1",
+    emp_id: "SE6662",
+    emp_name: "",
+    leave_type: "1",
+    date_applied: new Date(),
+    from_date: new Date(2018, 10, 13),
+    to_date: new Date(2018, 10, 15),
+    status: "1"
+  },
+  {
+    id: "1",
+    emp_id: "SE6662",
+    emp_name: "Tran Dang Hung",
+    leave_type: "1",
+    date_applied: new Date(),
+    from_date: new Date(2018, 10, 13),
+    to_date: new Date(2018, 10, 15),
+    status: "2"
+  },
+  {
+    id: "2",
+    emp_id: "SE4662",
+    emp_name: "Tran Dang",
+    leave_type: "2",
+    date_applied: new Date(),
+    from_date: new Date(2018, 10, 9),
+    to_date: new Date(2018, 10, 14),
+    status: "1"
+  },
+  {
+    id: "3",
+    emp_id: "SE6562",
+    emp_name: "",
+    leave_type: "1",
+    date_applied: new Date(),
+    from_date: new Date(2018, 10, 23),
+    to_date: new Date(2018, 10, 25),
+    status: "3"
+  },
+  {
+    id: "4",
+    emp_id: "SE6262",
+    emp_name: "",
+    leave_type: "3",
+    date_applied: new Date(),
+    from_date: new Date(2018, 10, 3),
+    to_date: new Date(2018, 10, 15),
+    status: "2"
+  },
+]
+const fakeBackendEvent: any = [
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 1,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
-    isRecurring: true,
+    fromDate: new Date(2018, 10, 13),
+    toDate: new Date(2018, 10, 13),
+    isRecurring: false,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 2,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
+    fromDate: new Date(2018, 11, 9),
+    toDate: new Date(2018, 11, 10),
     isRecurring: true,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 3,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
+    fromDate: new Date(2018, 11, 13),
+    toDate: new Date(2018, 11, 16),
     isRecurring: true,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 2,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
+    fromDate: new Date(2018, 11, 3),
+    toDate: new Date(2018, 11, 13),
     isRecurring: true,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 2,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
+    fromDate: new Date(2018, 11, 13),
+    toDate: new Date(2018, 11, 13),
     isRecurring: true,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 1,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
+    fromDate: new Date(2018, 11, 3),
+    toDate: new Date(2018, 11, 5),
     isRecurring: true,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
   {
     id: 1,
     eventTitle: 'Meet Company',
     eventTypeID: 1,
-    fromDate: '10-10-2018',
-    toDate: '11-10-2018',
+    fromDate: new Date(2018, 11, 13),
+    toDate: new Date(2018, 11, 15),
     isRecurring: true,
     createBy: 'Hung',
-    createAt: '10-10-2018',
-    updateAt: '10-10-2018'
   },
 ]
 
@@ -110,8 +149,9 @@ const fakeBackend: any = [
 export class MonthViewComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  events: CalendarEvent[] = [];
+  eventsCurrentDay:CalendarEvent[] = [];
   selectedIndex: number = 0;
-  view: string = 'month';
   currentYear: number;
   currentMonth: number;
   viewDate: Date = new Date();
@@ -119,17 +159,72 @@ export class MonthViewComponent implements OnInit {
   activeDayIsOpen: boolean = false;
   listMonth: string[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',]
   listYear: number[];
+
+  styleBox = {
+    'styleBox':true,
+  }
+  
+  getEvents() {
+    for (var value of fakeBackendEvent) {
+      this.events.push({
+        title: value.eventTitle,
+        start: value.fromDate,
+        end: value.toDate,
+        meta: {
+          type: 'events'
+        }
+      });
+    }
+  };
+
+  getLeaveList() {
+    for (var value of fakebackEndLeave) {
+      var metaType;
+      if (value.status === '1') {
+        metaType = 'leave1';
+      } else if (value.status === '2') {
+        metaType = 'leave2';
+      } else if(value.status === '3') {
+        metaType = 'leave3';
+      }
+      this.events.push({
+        id: "1",
+        title: value.emp_name + " " + value.emp_id + " " + value.leave_type,
+        start: value.from_date,
+        end: value.to_date,
+        meta: {
+          type: metaType,
+        }
+      })
+    }
+  }
+
+  testEvent(day) {
+    console.log(day.eventGroups);
+    console.log("Test");
+  }
+
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach(cell => {
+      const groups: any = {};
+      cell.events.forEach((event: CalendarEvent<{ type: string }>) => {
+        groups[event.meta.type] = groups[event.meta.type] || [];
+        groups[event.meta.type].push(event);
+      });
+      cell['eventGroups'] = Object.entries(groups);
+    });
+  }
   addNewEvents() {
-    this.dialog.open(AddEventComponent, {
+    this.dialog.open(ApplyLeaveComponent, {
       width: 'auto',
       height: 'auto'
     });
   }
-  previousMonth(){
+  previousMonth() {
     this.currentMonth = this.currentMonth - 1;
     this.dateChange();
   }
-  nextMonth(){
+  nextMonth() {
     this.currentMonth = this.currentMonth + 1;
     this.dateChange();
   }
@@ -149,13 +244,16 @@ export class MonthViewComponent implements OnInit {
     var dateInt = date.getFullYear();
     this.currentYear = dateInt;
     this.backForwardYear();
+    this.getEvents();
+    this.getLeaveList();
+    console.log(this.events);
   }
   dateChange() {
     this.viewDate = new Date(this.currentYear, this.currentMonth);
   }
-  //Note: Plus one when Add event to DB. +1
   clickMoth(index) {
     this.currentMonth = parseInt(index);
+    console.log(this.currentMonth)
     this.dateChange();
   }
   clickYear(index) {
@@ -178,63 +276,15 @@ export class MonthViewComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
-      if (events.length > 0) {
+      if(events.length > 0){
         this.selectedIndex = 1;
       }
-      
     }
+    this.eventsCurrentDay = events;
+    console.log(events);
   }
 
-  events: CalendarEvent[] = [
-    {
-      title: 'Event 1',
-      color: colors.yellow,
-      start: new Date(),
-      meta: {
-        type: 'warning'
-      }
-    },
-    {
-      title: 'Event 2',
-      color: colors.yellow,
-      start: new Date(),
-      meta: {
-        type: 'warning'
-      }
-    },
-    {
-      title: 'Event 3',
-      color: colors.blue,
-      start: new Date(),
-      meta: {
-        type: 'info'
-      }
-    },
-    {
-      title: 'Event 4',
-      color: colors.red,
-      start: new Date(),
-      end: new Date(2018, 9, 13),
-      meta: {
-        type: 'danger'
-      }
-    },
-  ];
 
-  testEvent(groups) {
-    console.log(groups);
-  }
-
-  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
-    body.forEach(cell => {
-      const groups: any = {};
-      cell.events.forEach((event: CalendarEvent<{ type: string }>) => {
-        groups[event.meta.type] = groups[event.meta.type] || [];
-        groups[event.meta.type].push(event);
-      });
-      cell['eventGroups'] = Object.entries(groups);
-    });
-  }
 
 
   // modalData: {

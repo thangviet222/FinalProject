@@ -18,6 +18,7 @@ import { CalendarModule, DateAdapter, CalendarEventAction } from 'angular-calend
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LeaveDataTableComponent } from './components/leave-data-table/leave-data-table.component';
 const routes: Routes = [
   {
     path: '', component: MainContentAppComponent,
@@ -54,10 +55,12 @@ const routes: Routes = [
     DayViewComponent,
     ViewAllComponent,
     ApplyLeaveComponent,
-    AddEventComponent
+    AddEventComponent,
+    LeaveDataTableComponent
   ],
   entryComponents:[
-    AddEventComponent
+    AddEventComponent,
+    ApplyLeaveComponent
   ]
  
 })

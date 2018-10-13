@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-day-view',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./day-view.component.css']
 })
 export class DayViewComponent implements OnInit {
-
+  @Input() CalendarEvents :any[];
+  @Input() testNumber:number;
   constructor() { }
 
   ngOnInit() {
+  }
+  test(){
+    console.log(this.CalendarEvents[1].meta.type);
   }
 
 }

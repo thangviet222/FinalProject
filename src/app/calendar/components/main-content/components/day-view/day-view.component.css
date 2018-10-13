@@ -6,3 +6,18 @@ h3 {
     background-color: #f5f5f5;
     padding: 15px;
   }
+  .customeButton button{
+    margin-top: 15px;
+  }
+  .badge-events{
+    background-color:grey;
+  }
+  .badge-leave1{
+    background-color:lightslategray;
+  }
+  .badge-leave2{
+    background-color:yellow;
+  }
+  .badge-leave3{
+    background-color:green;
+  }

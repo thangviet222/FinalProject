@@ -1,13 +1,13 @@
 <div style="height: 100vh;">
   <!-- This is popup -->
-  <!-- <button mat-button [matMenuTriggerFor]="menu">
-  <mat-icon>more_vert</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="addNewEvents()">
-    <mat-icon>add</mat-icon>Add new events
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
   </button>
-</mat-menu> -->
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="addNewEvents()">
+      <mat-icon>add</mat-icon>Add new events
+    </button>
+  </mat-menu>
 
   <!-- This is square for display event -->
   <ng-template #customCellTemplate let-day="day" let-locale="locale">
@@ -16,7 +16,7 @@
       <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
     <div class="cell-totals">
-      <span *ngFor="let group of day.eventGroups" (click)="testEvent(group)" class="badge badge-{{ group[0] }}">
+      <span *ngFor="let group of day.eventGroups" (click)="testEvent(day)" class="badge badge badge-{{ group[0] }}">
         {{ group[1].length }}
       </span>
     </div>
@@ -35,18 +35,18 @@
               {{year}}
             </mat-button-toggle>
           </mat-button-toggle-group>
-          
+
           <mat-button-toggle-group #group="matButtonToggleGroup" class="shortYearSelect">
-              <mat-button-toggle (click)="previousYear()">
-                <mat-icon>keyboard_arrow_left</mat-icon>
-              </mat-button-toggle>
-              <mat-button-toggle>
-                {{currentYear}}
-              </mat-button-toggle>
-              <mat-button-toggle (click)="nextYear()">
-                <mat-icon>keyboard_arrow_right</mat-icon>
-              </mat-button-toggle>
-            </mat-button-toggle-group>
+            <mat-button-toggle (click)="previousYear()">
+              <mat-icon>keyboard_arrow_left</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle>
+              {{currentYear}}
+            </mat-button-toggle>
+            <mat-button-toggle (click)="nextYear()">
+              <mat-icon>keyboard_arrow_right</mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
         <!-- for choose month -->
         <div>
@@ -67,10 +67,10 @@
             </mat-button-toggle>
           </mat-button-toggle-group>
         </div>
-        <hr/>
+        <hr />
         <!-- This is view curent date in the current table data -->
-        <!-- <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3> -->
         <!-- This is Month view -->
+        <!-- <h3>{{ viewDate}}</h3> -->
         <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate"
           (beforeViewRender)="beforeMonthViewRender($event)" (dayClicked)="dayClicked($event.day)" [activeDayIsOpen]="activeDayIsOpen"
           (eventTimesChanged)="eventTimesChanged($event)">
@@ -82,7 +82,9 @@
     <mat-tab label="Date View" (click)="selectTab(1)">
       <div class="example-large-box mat-elevation-z4">
         {{viewDate}}
-        <app-day-view></app-day-view>
+        <app-day-view [CalendarEvents]="eventsCurrentDay">
+
+        </app-day-view>
       </div>
     </mat-tab>
   </mat-tab-group>

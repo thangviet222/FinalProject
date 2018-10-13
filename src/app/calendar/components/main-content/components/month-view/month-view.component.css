@@ -52,9 +52,30 @@ pre {
     display: none;
   }
 }
+.yearSelect{
+  font-size: 20px;
+}
+.monthSelect{
+  font-size:20px;
+}
 mat-button-toggle-group{
   width: 100%;
 }
 mat-button-toggle{
   margin: auto;
+}
+mat-tab .label{
+  color: red;
+}
+.badge-events{
+  background-color:grey;
+}
+.badge-leave1{
+  background-color:lightslategray;
+}
+.badge-leave2{
+  background-color:yellow;
+}
+.badge-leave3{
+  background-color:green;
 }

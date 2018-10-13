@@ -16,4 +16,15 @@ body {
 }
 .cal-month-view .cal-day-number {
     opacity: 0.8;
+    font-size: 1em;
+}
+.cal-month-view .cal-cell-top {
+    min-height: 48px
+}
+
+@media  only all and (max-width: 320px){
+    .cal-month-view .cal-day-number {
+        opacity: 1;
+        font-size: 0.8em;
+    }
 }

@@ -1,1 +1,8 @@
-  
+<div class="form-control" class="customeButton">
+    <mat-toolbar>My App</mat-toolbar>
+    <button *ngFor="let events of CalendarEvents" (click)="test()" class="form-control" class="btn btn badge-{{events.meta.type}}" style="width: 100%;text-align:left;">
+        {{events.title}}
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    </button>
+    
+</div>

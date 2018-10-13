@@ -1,3 +1,39 @@
-<p>
-  apply-leave works!
-</p>
+<form>
+  <div class="row">
+    <div class="col-6">
+      <mat-form-field>
+        <span matPrefix></span>
+        <input matInput placeholder="Staff Name">
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field>
+        <input matInput placeholder="Employee ID">
+      </mat-form-field>
+    </div>
+    <div class="col-4">
+      <mat-form-field>
+        <mat-select placeholder="Leave type">
+          <mat-option value="option">Option</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="From date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="To date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" style="float:right">Submit</button>
+</form>
