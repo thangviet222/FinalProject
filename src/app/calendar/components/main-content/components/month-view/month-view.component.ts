@@ -215,8 +215,8 @@ export class MonthViewComponent implements OnInit {
     });
   }
   addNewEvents() {
-    this.dialog.open(ApplyLeaveComponent, {
-      width: 'auto',
+    this.dialog.open(AddEventComponent, {
+      width: '500px',
       height: 'auto'
     });
   }

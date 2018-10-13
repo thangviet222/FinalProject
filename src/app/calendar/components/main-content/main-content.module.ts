@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from '../../../shared/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { MainContentAppComponent } from './main-content-app.component';
@@ -47,6 +47,7 @@ const routes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    ReactiveFormsModule
   ],
   declarations: [
     MainContentAppComponent,
