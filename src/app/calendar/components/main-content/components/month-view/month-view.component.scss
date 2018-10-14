@@ -13,13 +13,6 @@ pre {
 .badge {
   margin-right: 5px;
 }
-.customeButton button{
-  text-align: center;
-  margin-left: 5px;
-  margin-right: 5pxx;
-  border-radius: 15px;
-  font-weight: 200px;
-}
 @media only all and (max-width: 480px){
   .buttonYear1{
     display: none;
@@ -42,7 +35,7 @@ pre {
     display: none;
   }
 }
-@media  only all and (min-width: 630px){
+@media only all and (min-width: 630px){
   .shortMonthSelect{
     display: none;
   }
@@ -63,19 +56,32 @@ mat-button-toggle-group{
 }
 mat-button-toggle{
   margin: auto;
+  font-size:17px;
+  opacity: 1;
+  height: 30px;
 }
 mat-tab .label{
   color: red;
 }
 .badge-events{
-  background-color:grey;
+  background-color:#cbcacc;
+  @extend .badgeStyle
 }
 .badge-leave1{
-  background-color:lightslategray;
+  background-color:#dac1dd;
+  @extend .badgeStyle
 }
 .badge-leave2{
-  background-color:yellow;
+  background-color:#FDFF3A;
+  @extend .badgeStyle
+}
+.badgeStyle{
+  width: 100%;
+  border-radius: 0px;
+  margin-bottom:1px;
+  height: 28px;
 }
 .badge-leave3{
-  background-color:green;
+  background-color:#7bd150;
+  @extend .badgeStyle
 }

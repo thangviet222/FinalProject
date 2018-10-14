@@ -15,7 +15,7 @@ export interface Tile {
 })
 
 export class AddEventComponent implements OnInit {
-  recurring: boolean = true;
+  isRecurring: boolean = false;
   result='';
   isSubmit =false;
   //validation
@@ -53,8 +53,8 @@ export class AddEventComponent implements OnInit {
       console.log('invalid')
     }
   }
-  isRecurring(event) {
-    console.log(this.recurring);
+  onChangeRecurring(event) {
+    this.isRecurring = event.checked;
   }
 }
 export class MyErrorStateMatcher implements ErrorStateMatcher {

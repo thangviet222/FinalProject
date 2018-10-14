@@ -9,6 +9,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AddEventComponent } from './components/main-content/components/add-event/add-event.component'
 import { from } from 'rxjs';
+import { ApplyLeaveComponent } from './components/main-content/components/apply-leave/apply-leave.component';
 
 
 const routes: Routes = [

@@ -1,0 +1,32 @@
+    @media only all and (min-width:765px){
+    .customStyleYear{
+        font-size:12px;
+        font-weight:bolder;
+        float: right;
+    }
+}
+.customeTest{
+    border-bottom: 1px solid;
+}
+@media only all and (max-width: 630px){
+    .yearSelect{
+      display: none;
+}
+}
+.yearSelect{
+    font-size: 20px;
+}
+@media  only all and (min-width: 630px){
+    .shortYearSelect{
+      display: none;
+    }
+  }
+mat-button-toggle-group{
+    width: 100%;
+  }
+mat-button-toggle{
+    margin: auto;
+    font-size:17px;
+    opacity: 1;
+    height: 30px;
+  }

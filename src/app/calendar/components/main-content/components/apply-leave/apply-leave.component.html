@@ -1,4 +1,4 @@
-<mat-card style="background-color:cadetblue">Apply Leave</mat-card>
+<mat-card>Apply Leave</mat-card>
 <br>
 <form>
   <div class="row">
@@ -22,19 +22,31 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-6">
+    <div class="col-5">
       <mat-form-field>
         <input matInput [matDatepicker]="picker" placeholder="From date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
-    <div class="col-6">
+    <div class="col-1">
+      <select class="form-control">
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+    <div class="col-5">
       <mat-form-field>
         <input matInput [matDatepicker]="picker1" placeholder="To date">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
+    </div>
+    <div class="col-1">
+      <select class="form-control">
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
     </div>
   </div>
   <button mat-raised-button color="primary" style="float:right">Submit</button>

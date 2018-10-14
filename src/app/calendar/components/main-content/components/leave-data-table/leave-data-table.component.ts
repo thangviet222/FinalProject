@@ -64,10 +64,20 @@ const fakeBackendLeave: any = [
 
 export class LeaveDataTableComponent implements OnInit {
   listLeave:any = [];
+  leaveHeader:any = ['Applie On','Employee Name','Employee ID','Leave type','From Date','To Date']
   constructor() { }
-
+  // appliedOn: new Date(7 / 5 / 2018),
+  // empName: 'Tran Dang Hung',
+  // empID: 'SE62533',
+  // leaveType: 'Annual',
+  // from_date: new Date(5 / 5 / 2017),
+  // to_date: new Date(7 / 5 / 2017),
+  // days: 3,
+  // appliedBy: "Jacky Tran",
+  // approvalStatus: 'PENDING',
   ngOnInit() {
     this.listLeave = fakeBackendLeave;
   }
 
+  
 }

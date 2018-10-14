@@ -1,75 +1,85 @@
 <div class="example-container">
-  <mat-toolbar>
-    <span>Add new events (One time)</span>
-  </mat-toolbar>
-  <form (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-select placeholder="Event type" [formControl]="eventTypeFormControl" [errorStateMatcher]="matcher">
-      <mat-option value="1">Non-working day</mat-option>
-      <mat-option value="2">Blocked day for leave</mat-option>
-      <mat-option value="3">Event Notification</mat-option>
-    </mat-select>
-    <mat-error *ngIf="eventTypeFormControl.hasError('required')">Please choose an event type</mat-error>
-  </mat-form-field>
-
-  <br>
-
-  <mat-form-field>
-    <input matInput placeholder="Event title" [formControl]="titleFormControl" [errorStateMatcher]="matcher">
-    <button mat-button *ngIf="title_event" matSuffix mat-icon-button aria-label="Clear" (click)="title_event=''">
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-error *ngIf="titleFormControl.hasError('required')">
-      Event title
-      <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-  <br>
-
-  <mat-form-field class="example-full-width">
-    <input matInput [matDatepicker]="picker_from" placeholder="Event from" [formControl]="eventFromFormControl" [errorStateMatcher]="matcher" required>
-    <mat-datepicker-toggle matSuffix [for]="picker_from"></mat-datepicker-toggle>
-    <mat-datepicker touchUi #picker_from></mat-datepicker>
-    <mat-error *ngIf="eventFromFormControl.hasError('required')">
-        Event date
-        <strong>required</strong>
-    </mat-error>
-    
-  </mat-form-field>
-  <br>
-
-  <mat-form-field class="example-full-width">
-    <input matInput [min]="eventFromFormControl.value" [matDatepicker]="picker_to" placeholder="Event to" [formControl]="eventToFormControl" [errorStateMatcher]="matcher" required>
-    <mat-datepicker-toggle matSuffix [for]="picker_to"></mat-datepicker-toggle>
-    <mat-datepicker touchUi #picker_to></mat-datepicker>
-    <mat-error *ngIf="eventToFormControl.hasError('required')">
-        Event date
-        <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <br>
-
-  <mat-form-field>
-    <textarea matInput placeholder="Remark" [formControl]="reMarkFormControl" [errorStateMatcher]="matcher" required></textarea>
-    <button mat-button *ngIf="remark" matSuffix mat-icon-button aria-label="Clear" (click)="remark=''">
-      <mat-icon>close</mat-icon>
-    </button>
-    <mat-error *ngIf="reMarkFormControl.hasError('required')">
-        Remark
-        <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-  <br>
-  
-  <h3 style="color:green" *ngIf="isSubmit" class="mat-h2">
-    <mat-icon class="mat-48">done</mat-icon>
-    {{result}}</h3>
-  <br>
-  <div class="button-row">
-    <button type="submit" mat-raised-button color="warn" (click)="closeRefdialog()">Cancle</button>
-    <button mat-raised-button color="primary" >Add</button>
+    <mat-toolbar>
+      <span>Add new events</span>
+      <span style="flex: 1 1 auto"></span>
+      <mat-slide-toggle (change)="onChangeRecurring($event)">Recurring</mat-slide-toggle>
+    </mat-toolbar>
+    <form (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field>
+            <mat-select placeholder="Event type" [formControl]="eventTypeFormControl" [errorStateMatcher]="matcher">
+              <mat-option value="1">Non-working day</mat-option>
+              <mat-option value="2">Blocked day for leave</mat-option>
+              <mat-option value="3">Event Notification</mat-option>
+            </mat-select>
+            <mat-error *ngIf="eventTypeFormControl.hasError('required')">Please choose an event type</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field>
+            <input matInput placeholder="Event title" [formControl]="titleFormControl" [errorStateMatcher]="matcher">
+            <button mat-button *ngIf="title_event" matSuffix mat-icon-button aria-label="Clear" (click)="title_event=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="titleFormControl.hasError('required')">
+              Event title
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="!isRecurring">
+        <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="picker_from" placeholder="Event from" [formControl]="eventFromFormControl"
+              [errorStateMatcher]="matcher" required>
+            <mat-datepicker-toggle matSuffix [for]="picker_from"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker_from></mat-datepicker>
+            <mat-error *ngIf="eventFromFormControl.hasError('required')">
+              Event date
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field class="example-full-width">
+            <input matInput [min]="eventFromFormControl.value" [matDatepicker]="picker_to" placeholder="Event to"
+              [formControl]="eventToFormControl" [errorStateMatcher]="matcher" required>
+            <mat-datepicker-toggle matSuffix [for]="picker_to"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker_to></mat-datepicker>
+            <mat-error *ngIf="eventToFormControl.hasError('required')">
+              Event date
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field>
+            <textarea matInput placeholder="Remark" [formControl]="reMarkFormControl" [errorStateMatcher]="matcher"
+              required></textarea>
+            <button mat-button *ngIf="remark" matSuffix mat-icon-button aria-label="Clear" (click)="remark=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="reMarkFormControl.hasError('required')">
+              Remark
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <h3 style="color:green" *ngIf="isSubmit" class="mat-h2">
+        <mat-icon class="mat-48">done</mat-icon>
+        {{result}}
+      </h3>
+      <br>
+      <div class="button-row">
+        <button type="submit" mat-raised-button color="warn" (click)="closeRefdialog()">Cancle</button>
+        <button mat-raised-button color="primary">Add</button>
+      </div>
+    </form>
   </div>
-</form>
-</div>

@@ -17,3 +17,6 @@ mat-form-field {
 h2{
   color: green
 }
+mat-toolbar{
+  background-color:cadetblue;
+}

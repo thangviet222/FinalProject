@@ -16,7 +16,7 @@
       <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
     <div class="cell-totals">
-      <span *ngFor="let group of day.eventGroups" (click)="testEvent(day)" class="badge badge badge-{{ group[0] }}">
+      <span *ngFor="let group of day.eventGroups" (click)="testEvent(day)" class="btn btn badge-{{ group[0] }}">
         {{ group[1].length }}
       </span>
     </div>
@@ -35,7 +35,6 @@
               {{year}}
             </mat-button-toggle>
           </mat-button-toggle-group>
-
           <mat-button-toggle-group #group="matButtonToggleGroup" class="shortYearSelect">
             <mat-button-toggle (click)="previousYear()">
               <mat-icon>keyboard_arrow_left</mat-icon>

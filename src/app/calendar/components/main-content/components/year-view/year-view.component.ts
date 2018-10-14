@@ -23,46 +23,109 @@ const colors: any = {
   selector: 'app-year-view',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './year-view.component.html',
-  styleUrls: ['./year-view.component.css']
+  styleUrls: ['./year-view.component.scss']
 })
 export class YearViewComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
-
+  currentYear: number;
   view: string = 'month';
+  viewDate: Date = new Date();
+  refresh: Subject<any> = new Subject();
+  activeDayIsOpen: boolean = false;
+  viewDate1: Date;
+  viewDate2: Date;
+  viewDate3: Date;
+  viewDate4: Date;
+  viewDate5: Date;
+  viewDate6: Date;
+  viewDate7: Date;
+  viewDate8: Date;
+  viewDate9: Date;
+  viewDate10: Date;
+  viewDate11: Date;
+  viewDate12: Date;
+  listYear: number[];
+  initMonth(){
+    this.viewDate1 = new Date();
+    this.viewDate1.setMonth(0);
+    this.viewDate1.setFullYear(this.currentYear);
 
-  c: number;
-  a: number;
-  b: number;
-  d: number;
-  e: number;
-  back() {
-    this.c = this.c - 1
-    this.a = this.c - 2;
-    this.b = this.c - 1;
-    this.d = this.c + 1;
-    this.e = this.c + 2;
+    this.viewDate2 = new Date();
+    this.viewDate2.setMonth(1);
+    this.viewDate2.setFullYear(this.currentYear);
+
+    this.viewDate3 = new Date();
+    this.viewDate3.setMonth(2);
+    this.viewDate3.setFullYear(this.currentYear);
+
+    this.viewDate4 = new Date();
+    this.viewDate4.setMonth(3);
+    this.viewDate4.setFullYear(this.currentYear);
+
+    this.viewDate5 = new Date();
+    this.viewDate5.setMonth(4);
+    this.viewDate5.setFullYear(this.currentYear);
+
+    this.viewDate6 = new Date();
+    this.viewDate6.setMonth(5);
+    this.viewDate6.setFullYear(this.currentYear);
+
+    this.viewDate7 = new Date();
+    this.viewDate7.setMonth(6);
+    this.viewDate7.setFullYear(this.currentYear);
+
+    this.viewDate8 = new Date();
+    this.viewDate8.setMonth(7);
+    this.viewDate8.setFullYear(this.currentYear);
+
+    this.viewDate9 = new Date();
+    this.viewDate9.setMonth(8);
+    this.viewDate9.setFullYear(this.currentYear);
+
+    this.viewDate10 = new Date();
+    this.viewDate10.setMonth(9);
+    this.viewDate10.setFullYear(this.currentYear);
+
+    this.viewDate11 = new Date();
+    this.viewDate11.setMonth(10);
+    this.viewDate11.setFullYear(this.currentYear);
+
+    this.viewDate12 = new Date();
+    this.viewDate12.setMonth(11);
+    this.viewDate12.setFullYear(this.currentYear);
   }
-  forward() {
-    this.c = this.c + 1
-    this.a = this.c - 2;
-    this.b = this.c - 1;
-    this.d = this.c + 1;
-    this.e = this.c + 2;
+  previousYear() {
+    this.currentYear = this.currentYear - 1
+    this.backForwardYear();
+    this.dateChange();
+  }
+  nextYear() {
+    this.currentYear = this.currentYear + 1
+    this.backForwardYear();
+    this.dateChange();
+  }
+  backForwardYear() {
+    this.listYear = [this.currentYear - 2, this.currentYear - 1, this.currentYear, this.currentYear + 1, this.currentYear + 2];
+  }
+  dateChange() {
+    this.viewDate = new Date(this.currentYear);
+    this.initMonth();
+  }
+  clickYear(index) {
+    this.currentYear = this.listYear[index];
+    this.backForwardYear();
+    this.dateChange();
   }
   ngOnInit() {
     var date = new Date();
     var dateInt = date.getFullYear();
-    this.c = dateInt;
-    this.a = this.c - 2;
-    this.b = this.c - 1;
-    this.d = this.c + 1;
-    this.e = this.c + 2;
+    this.currentYear = dateInt;
+    this.backForwardYear();
+    this.initMonth();
   }
-  viewDate: Date = new Date();
-  refresh: Subject<any> = new Subject();
-  activeDayIsOpen: boolean = false;
-
+ 
+ 
   constructor(private modal: NgbModal) { }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

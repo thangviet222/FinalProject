@@ -144,7 +144,7 @@ const fakeBackendEvent: any = [
   selector: 'app-month-view',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './month-view.component.html',
-  styleUrls: ['./month-view.component.css'],
+  styleUrls: ['./month-view.component.scss'],
 })
 export class MonthViewComponent implements OnInit {
 
@@ -160,10 +160,6 @@ export class MonthViewComponent implements OnInit {
   listMonth: string[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',]
   listYear: number[];
 
-  styleBox = {
-    'styleBox':true,
-  }
-  
   getEvents() {
     for (var value of fakeBackendEvent) {
       this.events.push({
@@ -215,9 +211,8 @@ export class MonthViewComponent implements OnInit {
     });
   }
   addNewEvents() {
-    this.dialog.open(AddEventComponent, {
-      width: '500px',
-      height: 'auto'
+    this.matDialog.open(AddEventComponent, {
+     
     });
   }
   previousMonth() {
@@ -266,7 +261,7 @@ export class MonthViewComponent implements OnInit {
   }
   constructor(
     private modal: NgbModal,
-    private dialog: MatDialog
+    private matDialog: MatDialog
   ) { }
 
   selectTab(a): void {
