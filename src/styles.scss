@@ -33,11 +33,16 @@ body {
 .cal-month-view .cal-header {
     font-weight: 100px;
  }
- .cal-month-view .cal-cell-top {
-    min-height: auto;
-    height: 40px;
-}
-.cal-month-view .cal-day-cell {
-    min-height: auto; }
+ 
 
 
+.customStyleYear{
+    .cal-month-view .cal-cell-top {
+        min-height: auto;
+        height: 40px;
+    }
+    .cal-month-view .cal-day-cell {
+        min-height: auto; }
+}    
+
+    

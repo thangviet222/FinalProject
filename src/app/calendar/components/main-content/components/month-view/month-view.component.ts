@@ -7,6 +7,7 @@ import { CalendarEvent, CalendarMonthViewDay, CalendarEventAction, CalendarEvent
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
+import { ActivatedRoute } from '@angular/router';
 
 const colors: any = {
   red: {
@@ -149,6 +150,8 @@ const fakeBackendEvent: any = [
 export class MonthViewComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  yearFromYearView:string;
+  monthFromYearView:string;
   events: CalendarEvent[] = [];
   eventsCurrentDay:CalendarEvent[] = [];
   selectedIndex: number = 0;
@@ -241,7 +244,20 @@ export class MonthViewComponent implements OnInit {
     this.backForwardYear();
     this.getEvents();
     this.getLeaveList();
-    console.log(this.events);
+    this.getDateFromYearView();
+    if(this.monthFromYearView !== undefined || this.yearFromYearView !== undefined){
+     this.currentYear = parseInt(this.yearFromYearView);
+     this.currentMonth = parseInt(this.monthFromYearView);
+     this.backForwardYear();
+     this.dateChange();
+    }
+    
+  }
+  getDateFromYearView(){
+    this._actiRoute.queryParams.subscribe(params =>{
+      this.yearFromYearView = params["year"];
+      this.monthFromYearView = params["month"];
+    })
   }
   dateChange() {
     this.viewDate = new Date(this.currentYear, this.currentMonth);
@@ -261,7 +277,8 @@ export class MonthViewComponent implements OnInit {
   }
   constructor(
     private modal: NgbModal,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private _actiRoute : ActivatedRoute
   ) { }
 
   selectTab(a): void {

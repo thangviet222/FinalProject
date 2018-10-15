@@ -17,66 +17,12 @@
   </mat-button-toggle-group>
 </div>
 <hr/>
-{{viewDate1}}
+<!-- {{viewDate10}} -->
 <div class="row customStyleYear">
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color  :cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate1" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate2" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate3" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate4" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate5" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate6" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate7" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate8" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate9" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate10" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate11" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
-    </mwl-calendar-month-view>
-  </div>
-  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest">
-    <mat-card-header style="background-color:cadetblue">Tháng 1</mat-card-header>
-    <mwl-calendar-month-view [viewDate]="viewDate12" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate">
+  <div class="col-lg-2 col-md-4 col-sm-12 col-xs-12 customeTest" *ngFor="let date of listDateView;let index = index">
+    <div class="lableMonthName" (click)="toDetailMonthView(index)">{{ listMonthName[index] }}</div>
+    <mwl-calendar-month-view [viewDate]="date" [events]="events" [refresh]="refresh" (dayClicked)="dayClicked($event.day)"
+     [cellTemplate]="customCellTemplate">
     </mwl-calendar-month-view>
   </div>
 </div>

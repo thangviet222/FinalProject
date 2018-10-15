@@ -4,6 +4,7 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { Router, NavigationExtras } from '@angular/router';
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -33,6 +34,8 @@ export class YearViewComponent implements OnInit {
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
   activeDayIsOpen: boolean = false;
+  listMonthName: any[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  listDateView: Date[];
   viewDate1: Date;
   viewDate2: Date;
   viewDate3: Date;
@@ -46,10 +49,17 @@ export class YearViewComponent implements OnInit {
   viewDate11: Date;
   viewDate12: Date;
   listYear: number[];
-  initMonth(){
+
+  constructor(
+    private modal: NgbModal,
+    private _router: Router
+    ) { }
+
+  initMonth() {
     this.viewDate1 = new Date();
     this.viewDate1.setMonth(0);
     this.viewDate1.setFullYear(this.currentYear);
+    console.log("date1InInit:" + this.viewDate1);
 
     this.viewDate2 = new Date();
     this.viewDate2.setMonth(1);
@@ -94,6 +104,10 @@ export class YearViewComponent implements OnInit {
     this.viewDate12 = new Date();
     this.viewDate12.setMonth(11);
     this.viewDate12.setFullYear(this.currentYear);
+
+    this.listDateView = [this.viewDate1, this.viewDate2, this.viewDate3, this.viewDate4,
+    this.viewDate5, this.viewDate6, this.viewDate7, this.viewDate8,
+    this.viewDate9, this.viewDate10, this.viewDate11, this.viewDate12]
   }
   previousYear() {
     this.currentYear = this.currentYear - 1
@@ -109,7 +123,7 @@ export class YearViewComponent implements OnInit {
     this.listYear = [this.currentYear - 2, this.currentYear - 1, this.currentYear, this.currentYear + 1, this.currentYear + 2];
   }
   dateChange() {
-    this.viewDate = new Date(this.currentYear);
+    console.log("currentDate1:" + this.viewDate1)
     this.initMonth();
   }
   clickYear(index) {
@@ -117,6 +131,16 @@ export class YearViewComponent implements OnInit {
     this.backForwardYear();
     this.dateChange();
   }
+  toDetailMonthView(index){
+     let  navigationExtras: NavigationExtras = {
+       queryParams:{
+         "month": index,
+         "year": this.currentYear
+       }
+     };
+     this._router.navigate(['/calendar', 'month'],navigationExtras);
+  }
+
   ngOnInit() {
     var date = new Date();
     var dateInt = date.getFullYear();
@@ -124,22 +148,12 @@ export class YearViewComponent implements OnInit {
     this.backForwardYear();
     this.initMonth();
   }
- 
- 
-  constructor(private modal: NgbModal) { }
+
+
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-    }
+    console.log(this.viewDate10);
+    console.log(date + "dateClicked");
   }
   // modalData: {
   //   action: string;
