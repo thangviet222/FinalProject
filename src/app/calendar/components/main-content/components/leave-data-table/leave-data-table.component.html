@@ -1,34 +1,61 @@
 <table mat-table [dataSource]="listLeave" class="mat-elevation-z8">
-
-    <!--- Note that these columns can be defined in any order.
+<!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  <!-- this.displayedColumns = ['appliedOn', 'empName', 'empID', 'leaveType','from_date','to_date','days','appliedBy','approvalStatus']; -->
+  <!-- Position Column -->
+  <ng-container matColumnDef="appliedOn">
+      <th mat-header-cell *matHeaderCellDef> Applie On </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.created_at}} </td>
     </ng-container>
   
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    <ng-container matColumnDef="empName">
+      <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.employee_name}} </td>
     </ng-container>
   
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    <ng-container matColumnDef="empID">
+      <th mat-header-cell *matHeaderCellDef> Employee ID </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.emp_id}} </td>
     </ng-container>
   
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    <ng-container matColumnDef="leaveType">
+      <th mat-header-cell *matHeaderCellDef> Leave type </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.leave_type}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="from_date">
+      <th mat-header-cell *matHeaderCellDef> From Date </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.leave_from_date}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="to_date">
+      <th mat-header-cell *matHeaderCellDef> To Date </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.leave_to_date}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="days">
+      <th mat-header-cell *matHeaderCellDef> Days </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.date_applied}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="appliedBy">
+      <th mat-header-cell *matHeaderCellDef> Applied by </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.applied_by}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="approvalStatus">
+      <th mat-header-cell *matHeaderCellDef> Approval status </th>
+      <td mat-cell *matCellDef="let ApplyLeave"> {{ApplyLeave.leave_status}} </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
-  

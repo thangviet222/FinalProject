@@ -4,17 +4,13 @@
       {{year}}
     </mat-button-toggle>
   </mat-button-toggle-group>
-  <mat-button-toggle-group #group="matButtonToggleGroup" class="shortYearSelect">
-    <mat-button-toggle (click)="previousYear()">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </mat-button-toggle>
-    <mat-button-toggle>
-      {{currentYear}}
-    </mat-button-toggle>
-    <mat-button-toggle (click)="nextYear()">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
+  <mat-form-field class="shortYearSelect">
+    <mat-select placeholder="Choose year">
+      <mat-option *ngFor="let year of listYear; let index=index" (click)="clickYear(index)" [value]="year">
+        {{year}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 <hr/>
 <!-- {{viewDate10}} -->

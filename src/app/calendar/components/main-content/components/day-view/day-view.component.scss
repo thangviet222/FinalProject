@@ -1,0 +1,39 @@
+h3 {
+    margin: 0 0 10px;
+  }
+  
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+  }
+  .customeButton button{
+    margin-top: 15px;
+  }
+  .badge-events{
+    background-color:#b4ddee;
+    @extend .badgeStyle
+  }
+  .badge-leave1{
+    background-color:#d7bed9;
+    @extend .badgeStyle
+  }
+  .badge-leave2{
+    background-color:#f2fb94;
+    @extend .badgeStyle
+  }
+  .badge-leave3{
+    background-color:#9dea55;
+    @extend .badgeStyle
+  }
+  .badgeStyle{
+    width: 100%;
+    border-radius: 0px;
+    font-size:14px;
+    height: 28px;
+    line-height: 100%;
+    text-align: left;
+    white-space: nowrap; 
+          overflow: hidden;
+          text-overflow: ellipsis;
+          
+  }

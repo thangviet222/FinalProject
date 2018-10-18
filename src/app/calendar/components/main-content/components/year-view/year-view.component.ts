@@ -53,7 +53,7 @@ export class YearViewComponent implements OnInit {
   constructor(
     private modal: NgbModal,
     private _router: Router
-    ) { }
+  ) { }
 
   initMonth() {
     this.viewDate1 = new Date();
@@ -109,16 +109,6 @@ export class YearViewComponent implements OnInit {
     this.viewDate5, this.viewDate6, this.viewDate7, this.viewDate8,
     this.viewDate9, this.viewDate10, this.viewDate11, this.viewDate12]
   }
-  previousYear() {
-    this.currentYear = this.currentYear - 1
-    this.backForwardYear();
-    this.dateChange();
-  }
-  nextYear() {
-    this.currentYear = this.currentYear + 1
-    this.backForwardYear();
-    this.dateChange();
-  }
   backForwardYear() {
     this.listYear = [this.currentYear - 2, this.currentYear - 1, this.currentYear, this.currentYear + 1, this.currentYear + 2];
   }
@@ -131,14 +121,14 @@ export class YearViewComponent implements OnInit {
     this.backForwardYear();
     this.dateChange();
   }
-  toDetailMonthView(index){
-     let  navigationExtras: NavigationExtras = {
-       queryParams:{
-         "month": index,
-         "year": this.currentYear
-       }
-     };
-     this._router.navigate(['/calendar', 'month'],navigationExtras);
+  toDetailMonthView(index) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "month": index,
+        "year": this.currentYear
+      }
+    };
+    this._router.navigate(['/calendar', 'month'], navigationExtras);
   }
 
   ngOnInit() {

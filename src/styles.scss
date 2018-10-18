@@ -22,20 +22,28 @@ body {
     .cal-month-view .cal-day-number {
         font-size: 0.8em;
     }
+    .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+        font-size: 0.8em; 
+    color:red;
+    }
+    .cal-month-view .cal-header .cal-cell {
+        font-size: 19px;
+    }    
 }
 @media only all and (max-width:320px){
     .cal-month-view .cal-day-number {
         font-size: 0.6em;
     }
     .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+        font-size: 0.8em; }
+}
+@media only all and (max-width:380px){
+    .cal-month-view .cal-da y-cell.cal-today .cal-day-number {
         font-size: 1em; }
 }
 .cal-month-view .cal-header {
     font-weight: 100px;
  }
- 
-
-
 .customStyleYear{
     .cal-month-view .cal-cell-top {
         min-height: auto;
@@ -43,6 +51,15 @@ body {
     }
     .cal-month-view .cal-day-cell {
         min-height: auto; }
-}    
-
+}   
+.monthView{
+    .cal-month-view .cal-cell-top {
+        min-height: 70px;
+        height: auto;
+    }
+    .cal-month-view .cal-day-cell {
+        min-height: 70px;
+        width: 10%;
+     }
+}
     

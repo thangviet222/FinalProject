@@ -1,4 +1,4 @@
-<div style="height: 100vh;">
+<div class="monthView">
   <!-- This is popup -->
   <button mat-button [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
@@ -9,14 +9,31 @@
     </button>
   </mat-menu>
 
-  <!-- This is square for display event -->
+  <!-- This is for display event -->
   <ng-template #customCellTemplate let-day="day" let-locale="locale">
     <div class="cal-cell-top">
-      <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
       <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
-    <div class="cell-totals">
-      <span *ngFor="let group of day.eventGroups" (click)="testEvent(day)" class="btn btn badge-{{ group[0] }}">
+    <div class="cell-totals largeView">
+      <div *ngFor="let group of day.eventGroups">
+        <button *ngIf="group[0] === 'events'" class="btn btn badge-{{ group[0] }}">{{ group[1][0].title }}
+        </button>
+      </div>
+      <div *ngFor="let group of day.eventGroups">
+        <button *ngIf="group[0] === 'leave1'" class="btn btn badge-{{ group[0] }}">{{ group[1][0].title }}
+        </button>
+      </div>
+      <div *ngFor="let group of day.eventGroups">
+        <button *ngIf="group[0] === 'leave2'" class="btn btn badge-{{ group[0] }}">{{ group[1][0].title }}
+        </button>
+      </div>
+      <div *ngFor="let group of day.eventGroups">
+        <button *ngIf="group[0] === 'leave3'" class="btn btn badge-{{ group[0] }}">{{ group[1][0].title }}
+        </button>
+      </div>
+    </div>
+    <div class="cell-totals smallView">
+      <span *ngFor="let group of day.eventGroups" (click)="testEvent(group)" class="btn btn badge-{{ group[0] }}">
         {{ group[1].length }}
       </span>
     </div>
@@ -35,17 +52,13 @@
               {{year}}
             </mat-button-toggle>
           </mat-button-toggle-group>
-          <mat-button-toggle-group #group="matButtonToggleGroup" class="shortYearSelect">
-            <mat-button-toggle (click)="previousYear()">
-              <mat-icon>keyboard_arrow_left</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle>
-              {{currentYear}}
-            </mat-button-toggle>
-            <mat-button-toggle (click)="nextYear()">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+          <mat-form-field class="shortYearSelect">
+            <mat-select placeholder="Choose year">
+              <mat-option *ngFor="let year of listYear; let index=index" (click)="clickYear(index)" [value]="year">
+                {{year}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <!-- for choose month -->
         <div>
@@ -54,22 +67,47 @@
               {{month}}
             </mat-button-toggle>
           </mat-button-toggle-group>
-          <mat-button-toggle-group #group="matButtonToggleGroup" class="shortMonthSelect">
-            <mat-button-toggle (click)="previousMonth()">
-              <mat-icon>keyboard_arrow_left</mat-icon>
-            </mat-button-toggle>
-            <mat-button-toggle>
-              {{listMonth[currentMonth]}}
-            </mat-button-toggle>
-            <mat-button-toggle (click)="nextMonth()">
-              <mat-icon>keyboard_arrow_right</mat-icon>
-            </mat-button-toggle>
-          </mat-button-toggle-group>
+          <mat-form-field class="shortMonthSelect">
+            <mat-select placeholder="Choose month">
+              <mat-option *ngFor="let month of listMonth; let index = index" value="month" (click)="clickMoth(index)">
+                {{month}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <hr />
         <!-- This is view curent date in the current table data -->
         <!-- This is Month view -->
-        <!-- <h3>{{ viewDate}}</h3> -->
+        <div class="row">
+          <div class="col-4">
+            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+          </div>
+          <div class="col-2">
+          </div>
+          <div class="col-3">
+            <div>
+              <select class="form-control">
+                <option value="">Filter by Employee ID</option>
+                <option>a</option>
+                <option>a</option>
+                <option>a</option>
+                <option>a</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-3">
+            <div>
+              <select class="form-control">
+                <option value="">Filter by Event type</option>
+                <option>a</option>
+                <option>a</option>
+                <option>a</option>
+                <option>a</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <br>
         <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate"
           (beforeViewRender)="beforeMonthViewRender($event)" (dayClicked)="dayClicked($event.day)" [activeDayIsOpen]="activeDayIsOpen"
           (eventTimesChanged)="eventTimesChanged($event)">

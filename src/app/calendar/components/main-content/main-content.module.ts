@@ -30,6 +30,7 @@ const routes: Routes = [
       { path: 'allEvents', component: ViewAllComponent },
       { path: 'addevent', component: AddEventComponent },
       { path: 'applyleave', component: ApplyLeaveComponent },
+      { path: 'leaveTableView',component:LeaveDataTableComponent},
       { path: '**', redirectTo: '' }
     ]
   },

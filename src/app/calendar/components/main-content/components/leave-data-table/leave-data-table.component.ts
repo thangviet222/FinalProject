@@ -1,56 +1,59 @@
 import { Component, OnInit } from '@angular/core';
+import { EventsSerivceService } from '../../../../../service/EventsSerive/events-serivce.service';
+import { ApplyLeave } from 'src/app/model/applyLeave';
+import {MatTableDataSource} from '@angular/material';
 const fakeBackendLeave: any = [
   {
-    appliedOn: new Date(7 / 5 / 2018),
+    appliedOn: new Date('7 / 5 / 2018').toLocaleDateString(),
     empName: 'Tran Dang Hung',
     empID: 'SE62533',
     leaveType: 'Annual',
-    from_date: new Date(5 / 5 / 2017),
-    to_date: new Date(7 / 5 / 2017),
+    from_date: new Date('5 / 5 / 2017').toLocaleDateString(),
+    to_date: new Date('7 / 5 / 2017').toLocaleDateString(),
     days: 3,
     appliedBy: "Jacky Tran",
     approvalStatus: 'PENDING',
   },
   {
-    appliedOn: new Date(7 / 5 / 2018),
+    appliedOn: new Date('7 / 5 / 2018').toLocaleDateString(),
     empName: 'Thang',
     empID: 'SE62532',
     leaveType: 'Media',
-    from_date: new Date(5 / 5 / 2017),
-    to_date: new Date(7 / 5 / 2017),
+    from_date: new Date('5 / 5 / 2017').toLocaleDateString(),
+    to_date: new Date('7 / 5 / 2017').toLocaleDateString(),
     days: 3,
     appliedBy: "Jacky Tran",
     approvalStatus: 'PENDING',
   },
   {
-    appliedOn: new Date(7 / 5 / 2018),
+    appliedOn: new Date('7 / 5 / 2018').toLocaleDateString(),
     empName: 'Tran Dang Hung',
     empID: 'SE62533',
     leaveType: 'Annual',
-    from_date: new Date(5 / 5 / 2017),
-    to_date: new Date(7 / 5 / 2017),
+    from_date: new Date('5 / 5 / 2017').toLocaleDateString(),
+    to_date: new Date('7 / 5 / 2017').toLocaleDateString(),
     days: 3,
     appliedBy: "Jacky Tran",
     approvalStatus: 'PENDING',
   },
   {
-    appliedOn: new Date(7 / 5 / 2018),
+    appliedOn: new Date('7 / 5 / 2018').toLocaleDateString(),
     empName: 'Tran Dang Hung',
     empID: 'SE62533',
     leaveType: 'Annual',
-    from_date: new Date(5 / 5 / 2017),
-    to_date: new Date(7 / 5 / 2017),
+    from_date: new Date('5 / 5 / 2017').toLocaleDateString(),
+    to_date: new Date('7 / 5 / 2017').toLocaleDateString(),
     days: 3,
     appliedBy: "Jacky Tran",
     approvalStatus: 'PENDING',
   },
   {
-    appliedOn: new Date(7 / 5 / 2018),
+    appliedOn: new Date('7 / 5 / 2018').toLocaleDateString(),
     empName: 'Tran Dang Hung',
     empID: 'SE62533',
     leaveType: 'Annual',
-    from_date: new Date(5 / 5 / 2017),
-    to_date: new Date(7 / 5 / 2017),
+    from_date: new Date('5 / 5 / 2017').toLocaleDateString(),
+    to_date: new Date('7 / 5 / 2017').toLocaleDateString(),
     days: 3,
     appliedBy: "Jacky Tran",
     approvalStatus: 'PENDING',
@@ -63,21 +66,25 @@ const fakeBackendLeave: any = [
 })
 
 export class LeaveDataTableComponent implements OnInit {
-  listLeave:any = [];
-  leaveHeader:any = ['Applie On','Employee Name','Employee ID','Leave type','From Date','To Date']
-  constructor() { }
-  // appliedOn: new Date(7 / 5 / 2018),
-  // empName: 'Tran Dang Hung',
-  // empID: 'SE62533',
-  // leaveType: 'Annual',
-  // from_date: new Date(5 / 5 / 2017),
-  // to_date: new Date(7 / 5 / 2017),
-  // days: 3,
-  // appliedBy: "Jacky Tran",
-  // approvalStatus: 'PENDING',
+  listLeave: ApplyLeave[] = [];
+  displayedColumns: any = [];
+  dataSourceArray1 =  new MatTableDataSource();
+  constructor(
+    private _eventSerive: EventsSerivceService
+  ) { }
   ngOnInit() {
-    this.listLeave = fakeBackendLeave;
+    //this.getAllListLeave();
   }
-
   
+  getAllListLeave(){
+    return this._eventSerive.getApplyLeaveData().subscribe(
+      data => {
+        console.log("POST Request is successful ", data);
+        this.listLeave = data;
+      },
+      error => {
+        console.log("Error", error);
+      }
+    )
+  };
 }

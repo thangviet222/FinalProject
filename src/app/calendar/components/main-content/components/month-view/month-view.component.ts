@@ -26,8 +26,8 @@ const colors: any = {
 const fakebackEndLeave: any = [
   {
     id: "1",
-    emp_id: "SE6662",
-    emp_name: "",
+    emp_id: "BD1122",
+    emp_name: "John Tan",
     leave_type: "1",
     date_applied: new Date(),
     from_date: new Date(2018, 10, 13),
@@ -36,13 +36,23 @@ const fakebackEndLeave: any = [
   },
   {
     id: "1",
-    emp_id: "SE6662",
-    emp_name: "Tran Dang Hung",
+    emp_id: "BD1622",
+    emp_name: "Lily Siew",
+    leave_type: "1",
+    date_applied: new Date(),
+    from_date: new Date(2018, 10, 23),
+    to_date: new Date(2018, 10, 23),
+    status: "2"
+  },
+  {
+    id: "1",
+    emp_id: "BD1622",
+    emp_name: "Lily Siew",
     leave_type: "1",
     date_applied: new Date(),
     from_date: new Date(2018, 10, 13),
     to_date: new Date(2018, 10, 15),
-    status: "2"
+    status: "3"
   },
   {
     id: "2",
@@ -57,7 +67,7 @@ const fakebackEndLeave: any = [
   {
     id: "3",
     emp_id: "SE6562",
-    emp_name: "",
+    emp_name: "Van Thang",
     leave_type: "1",
     date_applied: new Date(),
     from_date: new Date(2018, 10, 23),
@@ -67,7 +77,7 @@ const fakebackEndLeave: any = [
   {
     id: "4",
     emp_id: "SE6262",
-    emp_name: "",
+    emp_name: "Hoc Huy",
     leave_type: "3",
     date_applied: new Date(),
     from_date: new Date(2018, 10, 3),
@@ -78,7 +88,7 @@ const fakebackEndLeave: any = [
 const fakeBackendEvent: any = [
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 1,
     fromDate: new Date(2018, 10, 13),
     toDate: new Date(2018, 10, 13),
@@ -87,7 +97,7 @@ const fakeBackendEvent: any = [
   },
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 2,
     fromDate: new Date(2018, 11, 9),
     toDate: new Date(2018, 11, 10),
@@ -96,7 +106,7 @@ const fakeBackendEvent: any = [
   },
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 3,
     fromDate: new Date(2018, 11, 13),
     toDate: new Date(2018, 11, 16),
@@ -105,7 +115,7 @@ const fakeBackendEvent: any = [
   },
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 2,
     fromDate: new Date(2018, 11, 3),
     toDate: new Date(2018, 11, 13),
@@ -114,7 +124,7 @@ const fakeBackendEvent: any = [
   },
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 2,
     fromDate: new Date(2018, 11, 13),
     toDate: new Date(2018, 11, 13),
@@ -123,7 +133,7 @@ const fakeBackendEvent: any = [
   },
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 1,
     fromDate: new Date(2018, 11, 3),
     toDate: new Date(2018, 11, 5),
@@ -132,7 +142,7 @@ const fakeBackendEvent: any = [
   },
   {
     id: 1,
-    eventTitle: 'Meet Company',
+    eventTitle: 'Company D&D',
     eventTypeID: 1,
     fromDate: new Date(2018, 11, 13),
     toDate: new Date(2018, 11, 15),
@@ -150,13 +160,15 @@ const fakeBackendEvent: any = [
 export class MonthViewComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
-  yearFromYearView:string;
-  monthFromYearView:string;
+  isClickEvent: boolean = false;
+  yearFromYearView: string;
+  monthFromYearView: string;
   events: CalendarEvent[] = [];
-  eventsCurrentDay:CalendarEvent[] = [];
+  eventsCurrentDay: CalendarEvent[] = [];
   selectedIndex: number = 0;
   currentYear: number;
   currentMonth: number;
+  view: string = 'month';
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
   activeDayIsOpen: boolean = false;
@@ -179,16 +191,12 @@ export class MonthViewComponent implements OnInit {
   getLeaveList() {
     for (var value of fakebackEndLeave) {
       var metaType;
-      if (value.status === '1') {
-        metaType = 'leave1';
-      } else if (value.status === '2') {
-        metaType = 'leave2';
-      } else if(value.status === '3') {
-        metaType = 'leave3';
-      }
+      var leaveType;
+      metaType = value.status === '1' ? 'leave1' : value.status === '2' ? 'leave2' : value.status === '3' ? 'leave3' : '4';
+      leaveType = value.leave_type === '1' ? 'Annual' : value.leave_type === '2' ? 'Medical' : value.leave_type === '3' ? ' Maternity' : 'N/A';
       this.events.push({
         id: "1",
-        title: value.emp_name + " " + value.emp_id + " " + value.leave_type,
+        title: value.emp_name + " (" + leaveType + ") " + "AM",
         start: value.from_date,
         end: value.to_date,
         meta: {
@@ -198,9 +206,8 @@ export class MonthViewComponent implements OnInit {
     }
   }
 
-  testEvent(day) {
-    console.log(day.eventGroups);
-    console.log("Test");
+  testEvent(group) {
+    console.log(group);
   }
 
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
@@ -211,31 +218,38 @@ export class MonthViewComponent implements OnInit {
         groups[event.meta.type].push(event);
       });
       cell['eventGroups'] = Object.entries(groups);
-    });
+
+    },
+    );
   }
   addNewEvents() {
-    this.matDialog.open(AddEventComponent, {
-     
+    this.matDialog.open(ApplyLeaveComponent, {
+
     });
   }
   previousMonth() {
     this.currentMonth = this.currentMonth - 1;
+    if (this.currentMonth < 0) this.currentMonth = 11;
+    console.log(this.currentMonth);
     this.dateChange();
+
   }
   nextMonth() {
     this.currentMonth = this.currentMonth + 1;
+    if (this.currentMonth > 11) this.currentMonth = 0;
+    console.log(this.currentMonth);
     this.dateChange();
   }
-  previousYear() {
-    this.currentYear = this.currentYear - 1
-    this.backForwardYear();
-    this.dateChange();
-  }
-  nextYear() {
-    this.currentYear = this.currentYear + 1
-    this.backForwardYear();
-    this.dateChange();
-  }
+  // previousYear() {
+  //   this.currentYear = this.currentYear - 1
+  //   this.backForwardYear();
+  //   this.dateChange();
+  // }
+  // nextYear() {
+  //   this.currentYear = this.currentYear + 1
+  //   this.backForwardYear();
+  //   this.dateChange();
+  // }
   ngOnInit() {
     var date = new Date();
     this.currentMonth = date.getMonth();
@@ -245,16 +259,16 @@ export class MonthViewComponent implements OnInit {
     this.getEvents();
     this.getLeaveList();
     this.getDateFromYearView();
-    if(this.monthFromYearView !== undefined || this.yearFromYearView !== undefined){
-     this.currentYear = parseInt(this.yearFromYearView);
-     this.currentMonth = parseInt(this.monthFromYearView);
-     this.backForwardYear();
-     this.dateChange();
+    if (this.monthFromYearView !== undefined || this.yearFromYearView !== undefined) {
+      this.currentYear = parseInt(this.yearFromYearView);
+      this.currentMonth = parseInt(this.monthFromYearView);
+      this.backForwardYear();
+      this.dateChange();
     }
-    
+
   }
-  getDateFromYearView(){
-    this._actiRoute.queryParams.subscribe(params =>{
+  getDateFromYearView() {
+    this._actiRoute.queryParams.subscribe(params => {
       this.yearFromYearView = params["year"];
       this.monthFromYearView = params["month"];
     })
@@ -264,7 +278,7 @@ export class MonthViewComponent implements OnInit {
   }
   clickMoth(index) {
     this.currentMonth = parseInt(index);
-    console.log(this.currentMonth)
+    console.log(this.listMonth[this.currentMonth]);
     this.dateChange();
   }
   clickYear(index) {
@@ -278,7 +292,7 @@ export class MonthViewComponent implements OnInit {
   constructor(
     private modal: NgbModal,
     private matDialog: MatDialog,
-    private _actiRoute : ActivatedRoute
+    private _actiRoute: ActivatedRoute
   ) { }
 
   selectTab(a): void {
@@ -288,12 +302,11 @@ export class MonthViewComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.viewDate = date;
-      if(events.length > 0){
+      if (events.length > 0 && !this.isClickEvent) {
         this.selectedIndex = 1;
       }
     }
     this.eventsCurrentDay = events;
-    console.log(events);
   }
 
 

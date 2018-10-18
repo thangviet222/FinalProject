@@ -11,7 +11,10 @@
 @media only all and (max-width: 630px){
     .yearSelect{
       display: none;
-}
+      }
+      .shortYearSelect{
+        width: 100%;
+      }
 }
 .yearSelect{
     font-size: 20px;
@@ -36,4 +39,7 @@ mat-button-toggle{
     font-weight: bolder;
     font-size: 15px;
     text-align: center;
+}
+.customStyleYear{
+    cursor: pointer;
 }

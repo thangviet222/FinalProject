@@ -1,13 +1,5 @@
-h3 {
-    margin: 0 0 10px;
-  }
-  
-pre {
-    background-color: #f5f5f5;
-    padding: 15px;
-  }
 .cell-totals {
-  margin: 5px;
+  margin: 2px;
   text-align: center;
 }
 .badge {
@@ -34,17 +26,36 @@ pre {
   .yearSelect{
     display: none;
   }
+  .shortMonthSelect{
+    width: 100%;
+  }
+  .shortYearSelect{
+    width: 100%;
+  }
 }
-@media only all and (min-width: 630px){
+
+@media only all and (max-width:640px){
+  .largeView{
+    display: none;
+  }
+  .smallView{
+    text-align: center;
+  }
+}
+@media only all and (min-width:640px){
+  .smallView{
+    display:none;
+  }
   .shortMonthSelect{
     display: none;
   }
-}
-@media  only all and (min-width: 630px){
   .shortYearSelect{
     display: none;
   }
 }
+@media only all and (min-width:700px){
+}
+
 .yearSelect{
   font-size: 20px;
 }
@@ -64,24 +75,32 @@ mat-tab .label{
   color: red;
 }
 .badge-events{
-  background-color:#cbcacc;
+  background-color:#b4ddee;
   @extend .badgeStyle
 }
 .badge-leave1{
-  background-color:#dac1dd;
+  background-color:#d7bed9;
   @extend .badgeStyle
 }
 .badge-leave2{
-  background-color:#FDFF3A;
+  background-color:#f2fb94;
+  @extend .badgeStyle
+}
+.badge-leave3{
+  background-color:#9dea55;
   @extend .badgeStyle
 }
 .badgeStyle{
   width: 100%;
   border-radius: 0px;
-  margin-bottom:1px;
+  font-size:14px;
   height: 28px;
+  line-height: 100%;
+  text-align: left;
+  white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
 }
-.badge-leave3{
-  background-color:#7bd150;
-  @extend .badgeStyle
-}
+
+
