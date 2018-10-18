@@ -5,7 +5,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder, Valid
 @Component({
   selector: 'app-add-event-recur',
   templateUrl: './add-event-recur.component.html',
-  styleUrls: ['./add-event-recur.component.css']
+  styleUrls: ['./add-event-recur.component.scss']
 })
 export class AddEventRecurComponent implements OnInit {
   type_recur = '1';

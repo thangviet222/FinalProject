@@ -1,9 +1,9 @@
-<mat-card>
+<mat-toolbar>
   Add events (Recurring)
-</mat-card>
+</mat-toolbar>
 <br>
 <!-- Event Type -->
-<mat-form-field>
+<mat-form-field >
   <mat-select placeholder="Event type" [formControl]="eventTypeFC" [errorStateMatcher]="matcher">
     <mat-option value="1">Non-working day</mat-option>
     <mat-option value="2">Blocked day for leave</mat-option>
@@ -42,7 +42,9 @@
 <div [ngSwitch]="type_recur">
   <mat-card class="width-100" *ngSwitchCase="'1'">
     <mat-card-content>
-      <h2 style="margin:10px">Daily recurring setting</h2>
+      <mat-toolbar>
+        Daily recurring setting
+      </mat-toolbar>
       <br>
       <mat-form-field>
         <input matInput type="number" placeholder="Every (n) day(s)" [formControl]="eventDayRecurFC" [errorStateMatcher]="matcher">
@@ -55,7 +57,7 @@
   <!-- Weekly -->
   <mat-card class="width-100" *ngSwitchCase="'2'">
     <mat-card-content>
-      <h2 style="margin:10px">Weekly recurring setting</h2>
+      <mat-toolbar>Weekly recurring setting</mat-toolbar>
       <mat-form-field>
         <input matInput placeholder="Every (n) week(s)" [formControl]="eventWeekRecurFB" [errorStateMatcher]="matcher">
         <mat-error *ngIf="eventWeekRecurFB.hasError('required')">
@@ -76,7 +78,7 @@
   <!-- Monthly -->
   <mat-card class="width-100" *ngSwitchCase="'3'">
     <mat-card-content>
-      <h2 style="margin:10px">Monthly recurring setting</h2>
+      <mat-toolbar>Monthly recurring setting</mat-toolbar>
       <mat-radio-group fxLayout="row wrap" fxLayoutAlign="space-around" [(ngModel)]="type_recur_month">
         <mat-radio-button value="1"> Day of month </mat-radio-button>
         <mat-radio-button value="2"> Day of week </mat-radio-button>
@@ -133,7 +135,7 @@
   <!-- Yearly -->
   <mat-card class="width-100" *ngSwitchCase="'4'">
     <mat-card-content>
-      <h2 style="margin:10px">Yearly recurring setting</h2>
+      <mat-toolbar>Yearly recurring setting</mat-toolbar>
       <mat-form-field>
         <input type="number" min="1" matInput placeholder="Every (n) year(s)" [formControl]="eventYearRecurFC" [errorStateMatcher]="matcher">
         <mat-error *ngIf="eventYearRecurFC.hasError('required')">
