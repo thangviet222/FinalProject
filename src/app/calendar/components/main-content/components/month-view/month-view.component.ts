@@ -5,10 +5,14 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarMonthViewDay, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+import { EventsSerivceService } from '../../../../../service/EventsSerive/events-serivce.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
 import { ActivatedRoute } from '@angular/router';
 import { AddEventRecurComponent } from '../add-event-recur/add-event-recur.component';
+import { ApplyLeave } from 'src/app/model/applyLeave';
+import { Event } from 'src/app/model/Event';
+
 
 const colors: any = {
   red: {
@@ -162,6 +166,8 @@ export class MonthViewComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   isClickEvent: boolean = false;
+  listLeave: ApplyLeave[] = [];
+  listEvents: Event[] = [];
   yearFromYearView: string;
   monthFromYearView: string;
   events: CalendarEvent[] = [];
@@ -176,12 +182,13 @@ export class MonthViewComponent implements OnInit {
   listMonth: string[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',]
   listYear: number[];
 
-  getEvents() {
-    for (var value of fakeBackendEvent) {
+  addToCalendarEvents() {
+    console.log("Hello")
+    for (var Event of this.listEvents) {
       this.events.push({
-        title: value.eventTitle,
-        start: value.fromDate,
-        end: value.toDate,
+        title: Event.event_title,
+        start: Event.from_date,
+        end: Event.to_date,
         meta: {
           type: 'events'
         }
@@ -224,46 +231,36 @@ export class MonthViewComponent implements OnInit {
     );
   }
   addNewEvents() {
-    this.matDialog.open(ApplyLeaveComponent, {
+    this._matDialog.open(AddEventComponent, {
 
     });
   }
-  openEventRecur(): void {
-    this.matDialog.open(AddEventRecurComponent, {
+  openEventRecurring(): void {
+    this._matDialog.open(AddEventRecurComponent, {
       panelClass: 'custom-modalbox',
       height: '80%'
     });
   }
-  previousMonth() {
-    this.currentMonth = this.currentMonth - 1;
-    if (this.currentMonth < 0) this.currentMonth = 11;
-    console.log(this.currentMonth);
-    this.dateChange();
 
+  getAllListEvents() {
+    return this._eventsSerivce.getAllEvents().subscribe(
+      data => {
+        console.log("POST Request is successful ", data);
+        this.listEvents = data;
+      },
+      error => {
+        console.log("Error", error);
+      }
+    )
   }
-  nextMonth() {
-    this.currentMonth = this.currentMonth + 1;
-    if (this.currentMonth > 11) this.currentMonth = 0;
-    console.log(this.currentMonth);
-    this.dateChange();
-  }
-  // previousYear() {
-  //   this.currentYear = this.currentYear - 1
-  //   this.backForwardYear();
-  //   this.dateChange();
-  // }
-  // nextYear() {
-  //   this.currentYear = this.currentYear + 1
-  //   this.backForwardYear();
-  //   this.dateChange();
-  // }
   ngOnInit() {
+    this.getAllListEvents();
     var date = new Date();
     this.currentMonth = date.getMonth();
     var dateInt = date.getFullYear();
     this.currentYear = dateInt;
     this.backForwardYear();
-    this.getEvents();
+    this.addToCalendarEvents();
     this.getLeaveList();
     this.getDateFromYearView();
     if (this.monthFromYearView !== undefined || this.yearFromYearView !== undefined) {
@@ -297,9 +294,9 @@ export class MonthViewComponent implements OnInit {
     this.listYear = [this.currentYear - 2, this.currentYear - 1, this.currentYear, this.currentYear + 1, this.currentYear + 2];
   }
   constructor(
-    private modal: NgbModal,
-    private matDialog: MatDialog,
-    private _actiRoute: ActivatedRoute
+    private _matDialog: MatDialog,
+    private _actiRoute: ActivatedRoute,
+    private _eventsSerivce: EventsSerivceService
   ) { }
 
   selectTab(a): void {

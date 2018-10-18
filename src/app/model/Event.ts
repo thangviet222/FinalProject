@@ -1,5 +1,5 @@
 export class Event{
-    id:number;
+    id?:number;
     event_title: string;
     event_type_id: number;
     from_date: Date;
