@@ -1,7 +1,6 @@
 <mat-toolbar>
   Add events (Recurring)
 </mat-toolbar>
-<br>
 <!-- Event Type -->
 <mat-form-field >
   <mat-select placeholder="Event type" [formControl]="eventTypeFC" [errorStateMatcher]="matcher">
@@ -30,14 +29,13 @@
   </mat-error>
 </mat-form-field>
 <!-- Type Recurring -->
-<mat-card>
+
   <mat-radio-group fxLayout="row wrap" fxLayoutAlign="space-around center" [(ngModel)]="type_recur">
-    <mat-radio-button fxFlex.xs="40%" value="1">Daily</mat-radio-button>
-    <mat-radio-button fxFlex.xs="40%" value="2">Weekly</mat-radio-button>
-    <mat-radio-button fxFlex.xs="40%" value="3">Monthly</mat-radio-button>
-    <mat-radio-button fxFlex.xs="40%" value="4">Yearly</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" fxFlex="20%" value="1">Daily</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" fxFlex="20%" value="2">Weekly</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" fxFlex="20%" value="3">Monthly</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" fxFlex="20%" value="4">Yearly</mat-radio-button>
   </mat-radio-group>
-</mat-card>
 <!-- Dailly  -->
 <div [ngSwitch]="type_recur">
   <mat-card class="width-100" *ngSwitchCase="'1'">
@@ -45,7 +43,6 @@
       <mat-toolbar>
         Daily recurring setting
       </mat-toolbar>
-      <br>
       <mat-form-field>
         <input matInput type="number" placeholder="Every (n) day(s)" [formControl]="eventDayRecurFC" [errorStateMatcher]="matcher">
         <mat-error *ngIf="eventDayRecurFC.hasError('required')">
@@ -83,7 +80,6 @@
         <mat-radio-button value="1"> Day of month </mat-radio-button>
         <mat-radio-button value="2"> Day of week </mat-radio-button>
       </mat-radio-group>
-      <br>
       <div [ngSwitch]="type_recur_month">
         <div fxLayout="row wrap" fxLayoutGap="10px" *ngSwitchCase="'1'">
 
@@ -147,7 +143,6 @@
         <mat-radio-button value="2"> Day of week </mat-radio-button>
       </mat-radio-group>
 
-      <br>
       <div [ngSwitch]="type_recur_month">
         <div fxLayout="row wrap" fxLayoutGap="10px" *ngSwitchCase="'1'">
           <mat-form-field fxFlex.xs="80%">
