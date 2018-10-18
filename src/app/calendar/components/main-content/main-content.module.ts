@@ -19,6 +19,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeaveDataTableComponent } from './components/leave-data-table/leave-data-table.component';
+import { AddEventRecurComponent } from './components/add-event-recur/add-event-recur.component';
 const routes: Routes = [
   {
     path: '', component: MainContentAppComponent,
@@ -58,11 +59,13 @@ const routes: Routes = [
     ViewAllComponent,
     ApplyLeaveComponent,
     AddEventComponent,
-    LeaveDataTableComponent
+    LeaveDataTableComponent,
+    AddEventRecurComponent
   ],
   entryComponents:[
     AddEventComponent,
-    ApplyLeaveComponent
+    ApplyLeaveComponent,
+    AddEventRecurComponent
   ]
  
 })

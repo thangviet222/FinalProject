@@ -1,0 +1,233 @@
+<mat-card>
+  Add events (Recurring)
+</mat-card>
+<br>
+<!-- Event Type -->
+<mat-form-field>
+  <mat-select placeholder="Event type" [formControl]="eventTypeFC" [errorStateMatcher]="matcher">
+    <mat-option value="1">Non-working day</mat-option>
+    <mat-option value="2">Blocked day for leave</mat-option>
+    <mat-option value="3">Event Notification</mat-option>
+  </mat-select>
+  <mat-error *ngIf="eventTypeFC.hasError('required')">Please choose an
+    <strong>event type</strong>
+  </mat-error>
+</mat-form-field>
+<!-- Event title -->
+<mat-form-field>
+  <input matInput placeholder="Event title" [formControl]="eventTitleFC" [errorStateMatcher]="matcher">
+  <mat-error *ngIf="eventTitleFC.hasError('required')">
+    Event title
+    <strong>required</strong>
+  </mat-error>
+</mat-form-field>
+<!-- Remark -->
+<mat-form-field>
+  <textarea matInput placeholder="Remark" [formControl]="eventRemarkFC" [errorStateMatcher]="matcher"></textarea>
+  <mat-error *ngIf="eventRemarkFC.hasError('required')">
+    Remark
+    <strong>required</strong>
+  </mat-error>
+</mat-form-field>
+<!-- Type Recurring -->
+<mat-card>
+  <mat-radio-group fxLayout="row wrap" fxLayoutAlign="space-around center" [(ngModel)]="type_recur">
+    <mat-radio-button fxFlex.xs="40%" value="1">Daily</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" value="2">Weekly</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" value="3">Monthly</mat-radio-button>
+    <mat-radio-button fxFlex.xs="40%" value="4">Yearly</mat-radio-button>
+  </mat-radio-group>
+</mat-card>
+<!-- Dailly  -->
+<div [ngSwitch]="type_recur">
+  <mat-card class="width-100" *ngSwitchCase="'1'">
+    <mat-card-content>
+      <h2 style="margin:10px">Daily recurring setting</h2>
+      <br>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Every (n) day(s)" [formControl]="eventDayRecurFC" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="eventDayRecurFC.hasError('required')">
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+  <!-- Weekly -->
+  <mat-card class="width-100" *ngSwitchCase="'2'">
+    <mat-card-content>
+      <h2 style="margin:10px">Weekly recurring setting</h2>
+      <mat-form-field>
+        <input matInput placeholder="Every (n) week(s)" [formControl]="eventWeekRecurFB" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="eventWeekRecurFB.hasError('required')">
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+      <div [formGroup]="checkboxFG">
+        <div formArrayName="orders" fxLayout="row wrap" fxLayoutAlign="space-between start">
+          <mat-checkbox fxFlex.xs="40%" *ngFor="let day of dayOfWeeks;let i =index;" [value]=day [formControlName]="i">
+            {{day}}</mat-checkbox>
+        </div>
+        <mat-error *ngIf="!checkboxFG.valid">
+          Select at least one day
+        </mat-error>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <!-- Monthly -->
+  <mat-card class="width-100" *ngSwitchCase="'3'">
+    <mat-card-content>
+      <h2 style="margin:10px">Monthly recurring setting</h2>
+      <mat-radio-group fxLayout="row wrap" fxLayoutAlign="space-around" [(ngModel)]="type_recur_month">
+        <mat-radio-button value="1"> Day of month </mat-radio-button>
+        <mat-radio-button value="2"> Day of week </mat-radio-button>
+      </mat-radio-group>
+      <br>
+      <div [ngSwitch]="type_recur_month">
+        <div fxLayout="row wrap" fxLayoutGap="10px" *ngSwitchCase="'1'">
+
+          <mat-form-field fxFlex.xs="80%">
+            <input max="31" min="1" type="number" matInput placeholder="Days" [formControl]="eventMonthDayRecurFC" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="eventMonthDayRecurFC.hasError('required')">
+              <strong>Required</strong>
+            </mat-error>
+            <mat-error *ngIf="eventMonthDayRecurFC.hasError('max')">
+              <strong>Must be day of month</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex.xs="80%">
+            <input type="number" min="1" matInput placeholder="Every (n) month(s)" [formControl]="eventMonthRecurFC1" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="eventMonthRecurFC1.hasError('required')">
+              <strong>Required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap="10px" *ngSwitchCase="'2'">
+
+          <mat-form-field fxFlex.xs="80%">
+            <mat-select [(value)]="orderSelected">
+              <mat-option *ngFor="let order of orders" [value]="order">
+                {{order}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex.xs="80%">
+            <mat-select [(value)]="dayOfWeekSelected">
+              <mat-option *ngFor="let day of dayOfWeeks" [value]="day">
+                {{day}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex.xs="80%">
+            <input min="1" type="number" matInput placeholder="Every (n) month(s)" [formControl]="eventMonthRecurFC2" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="eventMonthRecurFC2.hasError('required')">
+              <strong>Required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <!-- Yearly -->
+  <mat-card class="width-100" *ngSwitchCase="'4'">
+    <mat-card-content>
+      <h2 style="margin:10px">Yearly recurring setting</h2>
+      <mat-form-field>
+        <input type="number" min="1" matInput placeholder="Every (n) year(s)" [formControl]="eventYearRecurFC" [errorStateMatcher]="matcher">
+        <mat-error *ngIf="eventYearRecurFC.hasError('required')">
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-radio-group fxLayout="row wrap" fxLayoutAlign="space-around" [(ngModel)]="type_recur_month">
+        <mat-radio-button value="1"> Day of month </mat-radio-button>
+        <mat-radio-button value="2"> Day of week </mat-radio-button>
+      </mat-radio-group>
+
+      <br>
+      <div [ngSwitch]="type_recur_month">
+        <div fxLayout="row wrap" fxLayoutGap="10px" *ngSwitchCase="'1'">
+          <mat-form-field fxFlex.xs="80%">
+            <input type="number" min="1" max="31" matInput placeholder="Days" [formControl]="eventYearDayRecurFC" [errorStateMatcher]="matcher">
+            <mat-error *ngIf="eventYearDayRecurFC.hasError('required')">
+              <strong>Required</strong>
+            </mat-error>
+            <mat-error *ngIf="eventYearDayRecurFC.hasError('max')">
+              <strong>Must be day of month</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex.xs="80%">
+            <mat-select [(value)]="monthSelected">
+              <mat-option *ngFor="let month of months" [value]="month">
+                {{month}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap="10px" *ngSwitchCase="'2'">
+
+          <mat-form-field fxFlex.xs="80%">
+            <mat-select [(value)]="orderSelected">
+              <mat-option *ngFor="let order of orders" [value]="order">
+                {{order}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field fxFlex.xs="80%">
+            <mat-select [(value)]="dayOfWeekSelected">
+              <mat-option *ngFor="let day of dayOfWeeks" [value]="day">
+                {{day}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field fxFlex.xs="80%">
+            <mat-select [(value)]="monthSelected">
+              <mat-option *ngFor="let month of months" [value]="month">
+                {{month}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- Start date -->
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Start date" [formControl]="eventFromDateFC" [errorStateMatcher]="matcher">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker touchUi #picker></mat-datepicker>
+  <mat-error *ngIf="eventFromDateFC.hasError('required')">
+    <strong>Required</strong>
+  </mat-error>
+</mat-form-field>
+<mat-radio-group fxLayout="row wrap" fxLayoutAlign="space-around" fxLayoutAlign.xs="start" [(ngModel)]="type_end_recur">
+  <mat-radio-button value="1"> No end date </mat-radio-button>
+  <mat-radio-button value="2"> End after (n) occurrences </mat-radio-button>
+  <mat-radio-button value="3"> End by date </mat-radio-button>
+</mat-radio-group>
+<div [ngSwitch]="type_end_recur">
+  <div *ngSwitchCase="'2'">
+    <mat-form-field>
+      <input type="number" matInput placeholder="End after (n) occurrences" [formControl]="eventRecurTimes" [errorStateMatcher]="matcher">
+      <mat-error *ngIf="eventRecurTimes.hasError('required')">
+        <strong>Required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngSwitchCase="'3'">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker_end" placeholder="End date" [formControl]="eventToDateFC" [errorStateMatcher]="matcher">
+      <mat-datepicker-toggle matSuffix [for]="picker_end"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker_end></mat-datepicker>
+      <mat-error *ngIf="eventToDateFC.hasError('required')">
+        <strong>Required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+</div>
+<button mat-raised-button color="primary" (click)="onClick()">Primary</button>
