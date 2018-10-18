@@ -11,15 +11,15 @@ import { YearViewComponent } from './components/year-view/year-view.component';
 import { MonthViewComponent } from './components/month-view/month-view.component';
 import { DayViewComponent } from './components/day-view/day-view.component';
 import { ViewAllComponent } from './components/view-all/view-all.component';
-import { AddEventComponent } from './components/add-event/add-event.component';
-import { ApplyLeaveComponent } from './components/apply-leave/apply-leave.component';
 
 import { CalendarModule, DateAdapter, CalendarEventAction } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LeaveDataTableComponent } from './components/leave-data-table/leave-data-table.component';
-import { AddEventRecurComponent } from './components/add-event-recur/add-event-recur.component';
+import { AddEventComponent } from '../add-event/add-event.component';
+import { AddEventRecurComponent } from '../add-event-recur/add-event-recur.component';
+import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
 const routes: Routes = [
   {
     path: '', component: MainContentAppComponent,
@@ -29,8 +29,6 @@ const routes: Routes = [
       { path: 'month', component: MonthViewComponent },
       { path: 'day', component: DayViewComponent },
       { path: 'allEvents', component: ViewAllComponent },
-      { path: 'addevent', component: AddEventComponent },
-      { path: 'applyleave', component: ApplyLeaveComponent },
       { path: 'leaveTableView',component:LeaveDataTableComponent},
       { path: '**', redirectTo: '' }
     ]
@@ -57,16 +55,9 @@ const routes: Routes = [
     MonthViewComponent,
     DayViewComponent,
     ViewAllComponent,
-    ApplyLeaveComponent,
-    AddEventComponent,
     LeaveDataTableComponent,
-    AddEventRecurComponent
   ],
-  entryComponents:[
-    AddEventComponent,
-    ApplyLeaveComponent,
-    AddEventRecurComponent
-  ]
+
  
 })
 export class MainContentModule { }

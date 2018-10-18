@@ -2,4 +2,16 @@
   <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
     <mat-icon>menu</mat-icon>
   </button>
+  <span class="example-spacer"></span>
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="addNewEvents()">
+      <mat-icon>add</mat-icon>New Event (One time)</button>
+    <button mat-menu-item (click)="addNewEventRecur()">
+      <mat-icon>add</mat-icon>New Event (Recurring)</button>
+    <button mat-menu-item (click)="addApplyLeave()">
+      <mat-icon>add</mat-icon>New Apply Leave</button>
+  </mat-menu>
 </mat-toolbar>

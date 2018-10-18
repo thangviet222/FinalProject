@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarAppComponent } from './calendar-app.component';
 import { MaterialModule } from '../shared/material.module';
-import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { Routes, RouterModule } from '@angular/router';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { AddEventComponent } from './components/main-content/components/add-event/add-event.component'
 import { from } from 'rxjs';
-import { ApplyLeaveComponent } from './components/main-content/components/apply-leave/apply-leave.component';
+import { AddEventRecurComponent } from './components/add-event-recur/add-event-recur.component';
+import { AddEventComponent } from './components/add-event/add-event.component';
+import { ApplyLeaveComponent } from './components/apply-leave/apply-leave.component';
 
 
 const routes: Routes = [
@@ -29,14 +29,22 @@ const routes: Routes = [
     MaterialModule,
     FormsModule,
     FlexLayoutModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ReactiveFormsModule
   ],
   declarations: [
     CalendarAppComponent,
     SideNavComponent,
     ToolbarComponent,
+     AddEventComponent,
+    ApplyLeaveComponent,
+    AddEventRecurComponent
     ],
-  
+    entryComponents:[
+      AddEventComponent,
+      ApplyLeaveComponent,
+      AddEventRecurComponent
+    ]
 
 })
 export class CalendarModule { }

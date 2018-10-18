@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarMonthViewDay, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+<<<<<<< HEAD
 import { EventsSerivceService } from '../../../../../service/EventsSerive/events-serivce.service';
 import { AddEventComponent } from '../add-event/add-event.component';
 import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
@@ -13,6 +14,9 @@ import { AddEventRecurComponent } from '../add-event-recur/add-event-recur.compo
 import { ApplyLeave } from 'src/app/model/applyLeave';
 import { Event } from 'src/app/model/Event';
 
+=======
+import { ActivatedRoute } from '@angular/router';
+>>>>>>> 2594a48f27200c23709c9ee5ba730954f6e05f09
 
 const colors: any = {
   red: {
@@ -230,6 +234,7 @@ export class MonthViewComponent implements OnInit {
     },
     );
   }
+<<<<<<< HEAD
   addNewEvents() {
     this._matDialog.open(AddEventComponent, {
 
@@ -241,6 +246,14 @@ export class MonthViewComponent implements OnInit {
       height: '80%'
     });
   }
+=======
+
+  previousMonth() {
+    this.currentMonth = this.currentMonth - 1;
+    if (this.currentMonth < 0) this.currentMonth = 11;
+    console.log(this.currentMonth);
+    this.dateChange();
+>>>>>>> 2594a48f27200c23709c9ee5ba730954f6e05f09
 
   getAllListEvents() {
     return this._eventsSerivce.getAllEvents().subscribe(
