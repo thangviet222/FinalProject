@@ -5,10 +5,7 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarMonthViewDay, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { AddEventComponent } from '../add-event/add-event.component';
-import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
 import { ActivatedRoute } from '@angular/router';
-import { AddEventRecurComponent } from '../add-event-recur/add-event-recur.component';
 
 const colors: any = {
   red: {
@@ -223,17 +220,7 @@ export class MonthViewComponent implements OnInit {
     },
     );
   }
-  addNewEvents() {
-    this.matDialog.open(ApplyLeaveComponent, {
 
-    });
-  }
-  openEventRecur(): void {
-    this.matDialog.open(AddEventRecurComponent, {
-      panelClass: 'custom-modalbox',
-      height: '80%'
-    });
-  }
   previousMonth() {
     this.currentMonth = this.currentMonth - 1;
     if (this.currentMonth < 0) this.currentMonth = 11;
