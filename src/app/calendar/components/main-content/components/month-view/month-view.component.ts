@@ -231,6 +231,7 @@ export class MonthViewComponent implements OnInit {
   openEventRecur(): void {
     this.matDialog.open(AddEventRecurComponent, {
       panelClass: 'custom-modalbox',
+      height: '80%'
     });
   }
   previousMonth() {
