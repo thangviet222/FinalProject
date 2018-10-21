@@ -1,7 +1,6 @@
 import { Component, OnInit, NgZone,ViewChild } from '@angular/core';
 import { MatSidenav, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { ApplyLeaveComponent } from '../main-content/components/apply-leave/apply-leave.component';
 const SMALL_WIDTH_BREAKPOINT = 2000;
 
 @Component({
@@ -30,11 +29,7 @@ export class SideNavComponent implements OnInit {
       }
     });
   }
-  applyForm(){
-    this.matDialog.open(ApplyLeaveComponent, {
-     
-    });
-  }
+
   isScreenSmall(): boolean {
     return this.mediaMatcher.matches;
   }

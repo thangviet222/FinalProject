@@ -2,21 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarMonthViewDay, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
-import { MatDialog, MatDialogConfig } from '@angular/material';
-<<<<<<< HEAD
-import { EventsSerivceService } from '../../../../../service/EventsSerive/events-serivce.service';
-import { AddEventComponent } from '../add-event/add-event.component';
-import { ApplyLeaveComponent } from '../apply-leave/apply-leave.component';
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { AddEventRecurComponent } from '../add-event-recur/add-event-recur.component';
 import { ApplyLeave } from 'src/app/model/applyLeave';
 import { Event } from 'src/app/model/Event';
-
-=======
-import { ActivatedRoute } from '@angular/router';
->>>>>>> 2594a48f27200c23709c9ee5ba730954f6e05f09
+import { EventsSerivceService } from '../../../../../service/EventsSerive/events-serivce.service';
+import { ApplyLeaveService } from 'src/app/service/ApplyLeaveService/apply-leave.service';
 
 const colors: any = {
   red: {
@@ -170,8 +162,9 @@ export class MonthViewComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   isClickEvent: boolean = false;
-  listLeave: ApplyLeave[] = [];
-  listEvents: Event[] = [];
+  listLeave: ApplyLeave[];
+  listEvents: Event[];
+
   yearFromYearView: string;
   monthFromYearView: string;
   events: CalendarEvent[] = [];
@@ -186,18 +179,61 @@ export class MonthViewComponent implements OnInit {
   listMonth: string[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',]
   listYear: number[];
 
-  addToCalendarEvents() {
-    console.log("Hello")
-    for (var Event of this.listEvents) {
-      this.events.push({
-        title: Event.event_title,
-        start: Event.from_date,
-        end: Event.to_date,
-        meta: {
-          type: 'events'
-        }
-      });
+  private dataStore: {
+    events: Event[]
+  }
+
+  ngOnInit() {
+    this._applyleaveService.getFakeAPI();
+    this.addToCalendarEvents()
+    var date = new Date();
+    this.currentMonth = date.getMonth();
+    var dateInt = date.getFullYear();
+    this.currentYear = dateInt;
+    this.backForwardYear();
+    this.getLeaveList();
+    this.getDateFromYearView();
+    if (this.monthFromYearView !== undefined || this.yearFromYearView !== undefined) {
+      this.currentYear = parseInt(this.yearFromYearView);
+      this.currentMonth = parseInt(this.monthFromYearView);
+      this.backForwardYear();
+      this.dateChange();
     }
+
+  }
+
+  async fillData() {
+    // await this._applyleaveService.apply_leave.subscribe(
+    //   listLeave => { this.listLeave = listLeave }
+    // );
+    await this._applyleaveService.apply_leave.toPromise()
+    console.log(this._applyleaveService.apply_leave.toPromise())
+    return this.listLeave.length
+  }
+
+
+  onClick() {
+    console.log(this.listLeave)
+  }
+  addToCalendarEvents() {
+
+    this._applyleaveService.apply_leave.subscribe(
+      async listLeave => {
+        this.listLeave = await listLeave;
+        for (var event of this.listLeave) {
+          // console.log(event)
+          this.events.push({
+            title: event.employee_name,
+            start: new Date(event.leave_from_date),
+            end: new Date(event.leave_to_date),
+            meta: {
+              type: 'events'
+            }
+          });
+          this.refresh.next()
+        }
+      }
+    )
   };
 
   getLeaveList() {
@@ -234,65 +270,26 @@ export class MonthViewComponent implements OnInit {
     },
     );
   }
-<<<<<<< HEAD
-  addNewEvents() {
-    this._matDialog.open(AddEventComponent, {
 
-    });
-  }
-  openEventRecurring(): void {
-    this._matDialog.open(AddEventRecurComponent, {
-      panelClass: 'custom-modalbox',
-      height: '80%'
-    });
-  }
-=======
 
-  previousMonth() {
-    this.currentMonth = this.currentMonth - 1;
-    if (this.currentMonth < 0) this.currentMonth = 11;
-    console.log(this.currentMonth);
-    this.dateChange();
->>>>>>> 2594a48f27200c23709c9ee5ba730954f6e05f09
-
-  getAllListEvents() {
-    return this._eventsSerivce.getAllEvents().subscribe(
-      data => {
-        console.log("POST Request is successful ", data);
-        this.listEvents = data;
-      },
-      error => {
-        console.log("Error", error);
-      }
-    )
-  }
-  ngOnInit() {
-    this.getAllListEvents();
-    var date = new Date();
-    this.currentMonth = date.getMonth();
-    var dateInt = date.getFullYear();
-    this.currentYear = dateInt;
-    this.backForwardYear();
-    this.addToCalendarEvents();
-    this.getLeaveList();
-    this.getDateFromYearView();
-    if (this.monthFromYearView !== undefined || this.yearFromYearView !== undefined) {
-      this.currentYear = parseInt(this.yearFromYearView);
-      this.currentMonth = parseInt(this.monthFromYearView);
-      this.backForwardYear();
-      this.dateChange();
-    }
-
-  }
+  // getAllListEvents(){
+  //   this._eventsSerivce.getAllEvents().subscribe(
+  //     function (events: Event[]) {
+  //       return events
+  //     }
+  //   );
+  // }
   getDateFromYearView() {
     this._actiRoute.queryParams.subscribe(params => {
       this.yearFromYearView = params["year"];
       this.monthFromYearView = params["month"];
     })
   }
+
   dateChange() {
     this.viewDate = new Date(this.currentYear, this.currentMonth);
   }
+
   clickMoth(index) {
     this.currentMonth = parseInt(index);
     console.log(this.listMonth[this.currentMonth]);
@@ -309,7 +306,8 @@ export class MonthViewComponent implements OnInit {
   constructor(
     private _matDialog: MatDialog,
     private _actiRoute: ActivatedRoute,
-    private _eventsSerivce: EventsSerivceService
+    private _eventsSerivce: EventsSerivceService,
+    private _applyleaveService: ApplyLeaveService
   ) { }
 
   selectTab(a): void {

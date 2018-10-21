@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroupDirective, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
+import { ApplyLeave } from '../../../model/applyLeave';
 @Component({
   selector: 'app-apply-leave',
   templateUrl: './apply-leave.component.html',
@@ -10,6 +11,7 @@ export class ApplyLeaveComponent implements OnInit {
   date = Date();
   result='';
   isSubmit =false;
+  applyLeave = new ApplyLeave()
   //validation
   matcher = new MyErrorStateMatcher();
   staffName = new FormControl('', Validators.required);
@@ -20,7 +22,8 @@ export class ApplyLeaveComponent implements OnInit {
   eventForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) { 
+  }
 
   ngOnInit() {
     this.eventForm = this.formBuilder.group({
@@ -36,13 +39,10 @@ export class ApplyLeaveComponent implements OnInit {
     
   }
   onSubmit() {
-    // if (this.eventForm.valid) {
-    //   this.result = 'Add success'
-    //   this.isSubmit = true;
-    //  console.log(this.eventForm.value)
-    // } else {
-    //   console.log('invalid')
-    // }
+    if(!this.eventForm.valid){
+      
+    }
+      
   }
 
 }

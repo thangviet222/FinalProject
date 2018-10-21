@@ -10,6 +10,8 @@ import { from } from 'rxjs';
 import { AddEventRecurComponent } from './components/add-event-recur/add-event-recur.component';
 import { AddEventComponent } from './components/add-event/add-event.component';
 import { ApplyLeaveComponent } from './components/apply-leave/apply-leave.component';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const routes: Routes = [

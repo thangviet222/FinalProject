@@ -9,7 +9,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { AddEventComponent } from './calendar/components/main-content/components/add-event/add-event.component';
+
 const routes: Routes = [
   {path:'calendar',loadChildren:'./calendar/calendar.module#CalendarModule'},
   {path:'**',redirectTo:'calendar'}
